@@ -10,7 +10,7 @@ You can execute this program with several files. You should follow the instructi
 ```
 $ java commandInput [-command] [-type option] [file1] [file2] ...
 ```
-if you do not insert any [-type option], inserting file lists after [-command] like below, the program would convert files to plain type automatically.
+If you do not insert any [-type option], inserting file lists after [-command] like below, the program would convert files to plain type automatically.
 ```
 $ java commandInput [-command] [file1] [file2] ...
 ```
