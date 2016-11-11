@@ -6,11 +6,11 @@ public class CommandInput {
    public static void main(String[] args) throws IOException
 {
       
-      if(args[0].equals("exit"))
+      if(args[0].equals("-exit"))
       {
          System.out.println("bye!");
       }
-      else if(args[0].equals("read"))
+      else if(args[0].equals("-read"))
       { 	
     	  try{
 	    	  switch(args[2])
@@ -25,7 +25,7 @@ public class CommandInput {
 	              BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("slide.html"));
 	               
 	               if (null != bufferedWriter){
-	                   System.out.println("slide.html ÆÄÀÏÀÌ ¼º°øÀûÀ¸·Î »ı¼ºµÇ¾ú½À´Ï´Ù."); 
+	                   System.out.println("slide.html íŒŒì¼ì´ ì„±ê³µì ìœ¼ë¡œ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤."); 
 	               }
 	               bufferedWriter.close();
 	               System.out.println("result: slide!");
@@ -45,7 +45,7 @@ public class CommandInput {
 	                     
 	                  if (null != bufferedWriter)
 	                  {
-	                	  System.out.println("fancy.html ÆÄÀÏÀÌ ¼º°øÀûÀ¸·Î »ı¼ºµÇ¾ú½À´Ï´Ù."); 
+	                	  System.out.println("fancy.html íŒŒì¼ì´ ì„±ê³µì ìœ¼ë¡œ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤."); 
 	                  }
 	                  bufferedWriter.close();
 	                  System.out.println("result: fancy!");
@@ -65,7 +65,7 @@ public class CommandInput {
 	                      
 	                  if (null != bufferedWriter)
 	                  {
-	                	  System.out.println("plain.html ÆÄÀÏÀÌ ¼º°øÀûÀ¸·Î »ı¼ºµÇ¾ú½À´Ï´Ù."); 
+	                	  System.out.println("plain.html íŒŒì¼ì´ ì„±ê³µì ìœ¼ë¡œ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤."); 
 	                  }
 	                  bufferedWriter.close();
 	                  System.out.println("result: plain!");
@@ -88,7 +88,7 @@ public class CommandInput {
                       
                   if (null != bufferedWriter)
                   {
-                	  System.out.println("plain.html ÆÄÀÏÀÌ ¼º°øÀûÀ¸·Î »ı¼ºµÇ¾ú½À´Ï´Ù."); 
+                	  System.out.println("plain.html íŒŒì¼ì´ ì„±ê³µì ìœ¼ë¡œ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤."); 
                   }
                   bufferedWriter.close();
                   System.out.println("result: plain!");
@@ -98,16 +98,16 @@ public class CommandInput {
               }
     	  }
       }
-      else if(args[0].equals("help"))
+      else if(args[0].equals("-help"))
       {
-         System.out.println("\n\t¢Â Help option"); 
+         System.out.println("\n\tâ—ˆ Help option"); 
          System.out.println("\n\t=========================================================================================================="); 
-          System.out.println("\t¡ØInput format: <Command_type> <file_name> <operation_type>\n"); 
-          System.out.println("\t\t¢º <Command_type>\texit : You can close the program."
+          System.out.println("\tâ€»Input format: <Command_type> <file_name> <operation_type>\n"); 
+          System.out.println("\t\tâ–¶ <Command_type>\texit : You can close the program."
                 + "\n\t\t\t\t\tread : You can insert a file to be converted."
                 + "\n\t\t\t\t\thelp : You can use help option.\n"); 
-          System.out.println("\t\t¢º <file_name>: File format is mandatory to be a \".md\".\n"); 
-          System.out.println("\t\t¢º <operation_type>: There are three type of operating option [slide][fancy][plain]."); 
+          System.out.println("\t\tâ–¶ <file_name>: File format is mandatory to be a \".md\".\n"); 
+          System.out.println("\t\tâ–¶ <operation_type>: There are three type of operating option [slide][fancy][plain]."); 
           System.out.println("\t=========================================================================================================="); 
       }
       else{
