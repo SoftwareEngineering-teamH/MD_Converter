@@ -1,4 +1,4 @@
-# CommandInput.java
+# commandInput.java
 CommandInput.java is a java program to convert a markdown file into a html file.
 Before you run this file, you should compile this java file.
 
@@ -6,8 +6,9 @@ See [javac](https://www.cis.upenn.edu/~bcpierce/courses/629/jdkdocs/tooldocs/win
 
 
 ## Synopsis
+You can execute this program with several files. You should follow the instruction as below:
 ```
-$ java CommandInput [command] [-type option] [file1] [file2] ...
+$ java commandInput [command] [-type option] [file1] [file2] ...
 ```
 
 
