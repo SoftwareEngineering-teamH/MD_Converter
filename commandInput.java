@@ -5,10 +5,12 @@ public class commandInput {
 	public static void main(String[] args) throws IOException
 	{
 		try{
+			//commandInput -exit을 했을 경우
 			if(args[0].equals("-exit"))
 			{
 				System.out.println("bye!");
 			}
+			//commandInput -help를 했을 경우
 			else if(args[0].equals("-help"))
 			{
 				System.out.println("\n\t◈ Help option"); 
@@ -22,9 +24,11 @@ public class commandInput {
 						+ "\t\t\t\tYou can insert multiple files.\n"); 
 				 System.out.println("\t=========================================================================================================="); 
 			}
+			//commandInput -read를 했을 경우
 			else if(args[0].equals("-read"))
 			{
-				if(args[1].equals("-slide"))
+				//commandInput -read -slide 을 했을 경우  .md파일을 읽어들인다
+	 			if(args[1].equals("-slide"))
 				{
 					System.out.println("\n◎ "+(args.length-2)+" read was executed.\n");
 					try {
@@ -59,6 +63,7 @@ public class commandInput {
 						System.out.println("Array index out of bound.");
 					}
 				}
+	 			//commandInput -read -fancy 일 경우  ---> 추후에 visitor로 방문하도록 할 필요
 				else if(args[1].equals("-fancy"))
 				{
 					System.out.println("\n◎ "+(args.length-2)+" read was executed.\n");
@@ -94,6 +99,7 @@ public class commandInput {
 						System.out.println("Array index out of bound.");
 					}
 				}
+	 			//commandInput -read -plain 일 경우  ---> assignment 2 여기서 작성
 				else if(args[1].equals("-plain"))
 				{
 					System.out.println("\n◎ "+(args.length-2)+" read was executed.\n");
