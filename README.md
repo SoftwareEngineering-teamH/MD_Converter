@@ -23,18 +23,18 @@ Read a markdown file and convert into a html file. There are three different typ
 
 For example, to run this program named CommandInput.java to convert README.md into README.html, use this command:
 ```
-$ java CommandInput read -slide README.md 
+$ java commandInput -read -slide README.md 
 ```
 
 * **-help**  
 Print options and usage.
 ```
-$ java CommandInput -help
+$ java commandInput -help
 ```
 
 * **-exit**  
 Terminate the this program.
 ```
-$ java CommandInput exit
+$ java commandInput -exit
 ```
 
