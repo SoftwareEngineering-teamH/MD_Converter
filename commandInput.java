@@ -2,7 +2,7 @@ import java.io.*;
 
 public class commandInput {
 
-	public static void main(String[] args) throws IOException
+	/*public static void main(String[] args) throws IOException
 	{
 		try{
 			//commandInput -exit을 했을 경우
@@ -178,5 +178,5 @@ public class commandInput {
 		{
 			System.out.println("[Command error]: No command was inserted");
 		}
-	}
+	}*/
 }
