@@ -21,6 +21,7 @@ public class Document implements MDElement
 	public String getLine(String str)
 	{
 		//str 에서 한문장 읽고 지우기 
+		//미완 
 		
 		return str;
 	}
@@ -32,7 +33,7 @@ public class Document implements MDElement
 		int type_num = 0;
 		
 		//str1, str2 비교해서 ..? ===== 같은거 잇으면 헤더로 넣고 이런거 작업 해서 node 무슨 타입인지 알려주는 역할..? 없으면 그냥 TextNode로 설정하고 ㅎㅎ 
-		
+		//미완 
 		
 		return type_num;
 	}
@@ -50,6 +51,9 @@ public class Document implements MDElement
 		case 3 :
 			QuotedBlock qb = new QuotedBlock();
 			return qb.create(data);
+		case 4 :
+			Horizontal hz = new Horizontal();
+			return hz.create(data);
 		default :
 			ItemList il = new ItemList();
 			return il.create(data);

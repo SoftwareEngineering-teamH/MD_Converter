@@ -1,0 +1,52 @@
+import java.util.ArrayList;
+
+public class Node implements MDElement
+{
+	public void accept(MDElementVisitor visitor)
+	{
+		visitor.visitNode(this);
+	}
+	
+	//attribute
+	String md_data = "";
+	String html_data = "";
+	int node_type = 0;
+	
+	ArrayList<Token> token_list = new ArrayList<Token>();
+	
+	//method
+	//node 마다 overriding 해줘서 node_type = 1;;이런식으로 설정 
+	public Node create(String data)
+	{
+		this.md_data = data;
+		
+		return this;
+	}
+	
+	public void setToken()
+	{	
+		for(int i = 0; i<md_data.length(); i++)
+		{
+			String data = md_data.substring(i, i+1);
+			// case 더 추가 해야함....ㅠ 
+			//미완 
+			switch (data)
+			{
+			case "*" : 
+				StyleText st = new StyleText();
+				this.token_list.add(st.create(data));
+				break;
+			case "/" :
+				Escape ec = new Escape();
+				this.token_list.add(ec.create(data));
+				break;
+			default :
+				PlainText pt = new PlainText();
+				this.token_list.add(pt.create(data));
+				break;
+			}
+			
+		}
+	}
+	
+}

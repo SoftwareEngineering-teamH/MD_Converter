@@ -6,8 +6,8 @@ public class main
 	{
 		String data = ""; 
 		String type = "";
-		// cli part >> (CLI class??)
-		// data, type 받
+		// CLI part >> (CLI class??)
+		// data, type 받기 
 		
 		// Document Object 만듦 
 		Document doc = new Document();
@@ -32,7 +32,9 @@ public class main
 			break;
 		}
 		
-		// Document Object.htmlData >> file output 
+		// Document Object.htmlData >> file output
+		
+		//doc.html_data 
 		
 		//end.
 		

@@ -8,39 +8,42 @@ public class Node implements MDElement
 	}
 	
 	//attribute
-	String data = "";
+	String md_data = "";
+	String html_data = "";
 	int node_type = 0;
 	
 	ArrayList<Token> token_list = new ArrayList<Token>();
 	
 	//method
-	// virtual 로 해서 node 마다 다르게 만들어 줘야 할 것 같...
+	//node 마다 overriding 해줘서 node_type = 1;;이런식으로 설정 
 	public Node create(String data)
 	{
-		this.data = data;
+		this.md_data = data;
 		
 		return this;
 	}
 	
 	public void setToken()
-	{
-		int token_type = 0;
-		
-		for(int i = 0; i<data.length(); i++)
+	{	
+		for(int i = 0; i<md_data.length(); i++)
 		{
-			//token 구별해주기....
+			String data = md_data.substring(i, i+1);
+			// case 더 추가 해야함....ㅠ 
+			// 이미지나 링크 같은거 어려운데 어떻게 처리할지 고민해 봐야함......ㅠㅠ 여기 도 어렵...
+			// 미완 
+			switch (data)
+			{
+			case "*" : 
+				StyleText st = new StyleText();
+				this.token_list.add(st.create(data));
+				break;
+			default :
+				PlainText pt = new PlainText();
+				this.token_list.add(pt.create(data));
+				break;
+			}
 			
-			//구별 해주면 토큰 리스트에 토큰 넣기...
-			// if ( data.substring(i,i+1) == "*" )
-			
-			// Token 
-			
-			// Node 처럼 Token 안에 create 만들어서 할까....
-			
-			//this.token_list.add();
 		}
-		
-		
 	}
 	
 }
