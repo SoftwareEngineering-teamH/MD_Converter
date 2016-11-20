@@ -1,5 +1,5 @@
 
-public class CodeBlock 
+public class CodeBlock extends Node implements MDElement
 {
 
 }

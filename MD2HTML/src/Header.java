@@ -1,5 +1,6 @@
 
-public class Header 
+public class Header extends Node implements MDElement
 {
+	
 
 }
