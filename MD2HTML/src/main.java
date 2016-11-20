@@ -27,7 +27,7 @@ public class main
 		case "slide" : 
 			doc.accept(new SlideVisitor());
 			break;
-		case "fancy" :  
+		default	:  
 			doc.accept(new FancyVisitor());
 			break;
 		}

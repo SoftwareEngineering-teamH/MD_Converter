@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+
+public class Node implements MDElement
+{
+	public void accept(MDElementVisitor visitor)
+	{
+		visitor.visitNode(this);
+	}
+	
+	//attribute
+	String data = "";
+	
+	ArrayList<Token> token_list = new ArrayList<Token>();
+	
+	//method
+	public Node create(String data)
+	{
+		this.data = data;
+		
+		return this;
+	}
+	
+}

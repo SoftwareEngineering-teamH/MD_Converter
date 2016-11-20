@@ -1,0 +1,20 @@
+
+public class Node implements MDElement
+{
+	public void accept(MDElementVisitor visitor)
+	{
+		visitor.visitNode(this);
+	}
+	
+	//attribute
+	String data = "";
+	
+	//method
+	public Node create(String data)
+	{
+		this.data = data;
+		
+		return this;
+	}
+	
+}

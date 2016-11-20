@@ -7,7 +7,7 @@ public class Document implements MDElement
 		visitor.visitDocument(this);
 	}
 	
-	// attribute들 
+	// attribute
 	String buffer1 = "";
 	String buffer2 = "";
 	String list_bf = "";
@@ -17,13 +17,15 @@ public class Document implements MDElement
 	
 	ArrayList<Node> node_list = new ArrayList<Node>();
 	
-	//method들 
+	//method
 	public String getLine(String str)
 	{
 		//str 에서 한문장 읽고 지우기 
 		
 		return str;
 	}
+	
+	//nested list, quoted block 구분 하는게 개 어려울 듯....
 	
 	public int check(String str1, String str2)
 	{
@@ -35,17 +37,23 @@ public class Document implements MDElement
 		return type_num;
 	}
 	
-	public void setNode(int type, String data)
+	public Node setNode(int type, String data)
 	{
 		switch(type)
 		{
 		case 1 : 
-		case 2 :
+			Header hd = new Header();
+			return hd.create(data);
+		case 2 : 
+			CodeBlock cb  = new CodeBlock();
+			return cb.create(data);
 		case 3 :
+			QuotedBlock qb = new QuotedBlock();
+			return qb.create(data);
+		default :
+			ItemList il = new ItemList();
+			return il.create(data);
 		}
-		
-		//this.node_list.add()
-		
 	}
 }
 
