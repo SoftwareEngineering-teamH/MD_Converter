@@ -16,10 +16,21 @@ public class main
 		MDParser pars = new MDParser();
 		
 		// Parsing() >> Document Object 에 node_list 저장
-		pars.parsing(data, type, doc);
+		pars.parsing(data, doc);
 		
-		// Document Object.accept(plainVisitor) 
-		doc.accept(new PlainVisitor());
+		// Document Object.accept((type)Visitor) 
+		switch (type)
+		{
+		case "plain" : 
+			doc.accept(new PlainVisitor());
+			break;
+		case "slide" : 
+			doc.accept(new SlideVisitor());
+			break;
+		case "fancy" :  
+			doc.accept(new FancyVisitor());
+			break;
+		}
 		
 		// Document Object.htmlData >> file output 
 		

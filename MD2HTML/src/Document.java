@@ -20,7 +20,7 @@ public class Document implements MDElement
 	//method들 
 	public String getLine(String str)
 	{
-		//str 에서 한문장 읽
+		//str 에서 한문장 읽고 지우기 
 		
 		return str;
 	}
@@ -29,8 +29,27 @@ public class Document implements MDElement
 	{
 		int type_num = 0;
 		
+		//str1, str2 비교해서 ..? ===== 같은거 잇으면 헤더로 넣고 이런거 작업 해서 node 무슨 타입인지 알려주는 역할..? 없으면 그냥 TextNode로 설정하고 ㅎㅎ 
 		
 		
 		return type_num;
 	}
+	
+	public void setNode(int type, String data)
+	{
+		switch(type)
+		{
+		case 1 : 
+		case 2 :
+		case 3 :
+		}
+		
+		//this.node_list.add()
+		
+	}
 }
+
+
+
+
+
