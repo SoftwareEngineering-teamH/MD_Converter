@@ -24,11 +24,9 @@ public class MDParser
 		while(str_arr_idx < str_arr.length)
 		{		
 			doc.buffer2 = str_arr[str_arr_idx];
-			
 			node_type = doc.check(doc.buffer1, doc.buffer2);
 			
-			if (node_type != 0)
-				doc.node_list.add(doc.setNode(node_type, doc.buffer1));
+			doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 			
 			doc.buffer1 = doc.buffer2;
 

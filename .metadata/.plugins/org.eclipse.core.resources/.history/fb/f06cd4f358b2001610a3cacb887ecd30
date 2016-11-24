@@ -11,11 +11,10 @@ public class main
 		// CLI part >> (CLI class??)
 		File file = new File(args[0]);
         Scanner sc = new Scanner(file);
-        
         while(sc.hasNext()) 
         {
            data += sc.next();
-           data += "\n";
+           data += "//n";
         }
 		// data, type 받기 
 		
@@ -32,11 +31,11 @@ public class main
 		data += "====\n";
 		data += "7890\n";
 		*/
-		
 		// Parsing() >> Document Object 에 node_list 저장
 		pars.parsing(data, doc);
-		for(int i=0;i<4;i++)
-			System.out.println(doc.node_list.get(i).md_data +"type:" + doc.node_list.get(i).node_type);
+		
+		System.out.println(doc.node_list.get(0).md_data);
+		//System.out.println(doc.node_list.get(1).md_data);
 		
 		/*
 		///////////////////////////////////////////////////////////////////

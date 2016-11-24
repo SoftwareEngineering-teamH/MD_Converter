@@ -36,10 +36,6 @@ public class Document implements MDElement
 			// if second sentence has ==, then first node is Header
 			type_num = Header;
 		}
-		else if(buffer1.contains("=="))
-		{
-			type_num = 0;
-		}
 		else if(buffer1.startsWith("* "))
 		{
 			//if sentence starts with asterisk(*) and one space bar, it is Item List.
