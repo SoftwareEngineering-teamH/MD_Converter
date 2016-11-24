@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Scanner;
 
 public class main 
 {
@@ -6,7 +7,13 @@ public class main
 	{
 		String data = ""; 
 		String type = "";
+		
 		// CLI part >> (CLI class??)
+		File file = new File(args[1]);
+        Scanner sc = new Scanner(file);
+        while(sc.hasNext()) 
+           data += sc.next();
+		
 		// data, type 받기 
 		
 		// Document Object 만듦 
@@ -15,9 +22,20 @@ public class main
 		// MDParser Object 만듦 
 		MDParser pars = new MDParser();
 		
+		////////////////
+		//parsing test
+		/*
+		data = "123456\n";
+		data += "====\n";
+		data += "7890\n";
+		*/
 		// Parsing() >> Document Object 에 node_list 저장
 		pars.parsing(data, doc);
 		
+		System.out.println(doc.node_list.get(0).md_data);
+		//System.out.println(doc.node_list.get(1).md_data);
+		
+		/*
 		///////////////////////////////////////////////////////////////////
 		//Generate test
 		type = "plain";
@@ -37,6 +55,7 @@ public class main
 		System.out.println(doc.node_list.get(0).md_data);
 		
 		//////////////////////////////////////////////////////////////////
+		*/
 		
 		// Document Object.accept((type)Visitor) 
 		switch (type)
