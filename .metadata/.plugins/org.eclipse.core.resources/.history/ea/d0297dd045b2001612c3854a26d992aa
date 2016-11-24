@@ -32,22 +32,12 @@ public class main
 			break;
 		}
 		
-		// html error test
-		/*
-		Tidy tidy = new Tidy();
-   		InputStream stream = new ByteArrayInputStream(htmlData.getBytes());
-   		tidy.parse(stream, System.out);
-   		return (tidy.getParseErrors() == 0);  
-		 */
-		
-		
 		// Document Object.htmlData >> file output
-		
 		
 		//doc.html_data 
 		
+		//end.
 		
-		//end
 	}
 }
 

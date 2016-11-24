@@ -12,10 +12,6 @@ public class PlainVisitor implements MDElementVisitor
 	
 	public void visitNode(Node node)
 	{
-		String content = new String();
-		
-		// node start tag generate
-		content += node.setStartTag();
 		// token_list
 		for(int i=0;i<node.token_list.size(); i++)
 		{
@@ -24,11 +20,8 @@ public class PlainVisitor implements MDElementVisitor
 			// 미완 
 		}
 		
-		// node finish tag generate
-		content += node.setEndTag();
-		
 		//node.html_data += 
-		node.html_data += content;
+		//node type에 따라 앞뒤에 <> </>붙여주기...
 	}
 	
 	/*

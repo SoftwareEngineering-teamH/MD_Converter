@@ -46,37 +46,4 @@ public class Node implements MDElement
 		}
 	}
 	
-	
-	public String setStartTag()
-	{
-		switch(this.node_type)
-		{
-		case 1:
-			return "<h1>";
-		case 2:
-			return "<pre><code>";
-		default :
-			return "<br>";
-		}
-	}
-	
-	public String setEndTag()
-	{
-		switch(this.node_type)
-		{
-		case 1:
-			return "</h1>";
-		case 2:
-			return "</code></pre>";
-		default :
-			return "</br>";
-		}
-	}
 }
-
-
-
-
-
-
-
