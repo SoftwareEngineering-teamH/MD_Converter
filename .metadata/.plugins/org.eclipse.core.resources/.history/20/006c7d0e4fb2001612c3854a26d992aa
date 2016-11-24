@@ -60,7 +60,7 @@ public class PlainVisitor implements MDElementVisitor
 			else if(node.token_list.get(i).token_type == 44)
 			{
 				link_flag = false;
-				plain.remove(plain.size()-1);
+				//plain.remove(plain.size()-1);
 				String id = this.Charlist2String(plain);
 				tmp_id = id;
 				plain = new ArrayList<Character>();
@@ -83,7 +83,7 @@ public class PlainVisitor implements MDElementVisitor
 			else if(node.token_list.get(i).token_type == 55)
 			{
 				img_flag = false;
-				plain.remove(plain.size()-1);
+				//plain.remove(plain.size()-1);
 				String Alt = this.Charlist2String(plain);
 				String s[] = Alt.split(" ");
 				tmp_id = s[1];
