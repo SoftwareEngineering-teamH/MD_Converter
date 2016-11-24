@@ -6,6 +6,7 @@ public class MDParser
 	{
 		int node_type = 0;
 		
+
 		doc.md_data = data;
 		
 		// file is divided into string array by one sentence.

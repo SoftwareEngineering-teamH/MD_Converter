@@ -8,28 +8,25 @@ public class MDParser
 		
 		doc.md_data = data;
 		
-		// file is divided into string array by one sentence.
-		String[] str_arr = doc.md_data.split("/n");	
-		
-		int str_arr_idx = 0;
-		
 		// parsing algorithm
-		doc.buffer1 = str_arr[str_arr_idx];
-		str_arr_idx++;
+		doc.buffer1 = doc.getLine(data);
 		
-		// read file until the end
-		while(str_arr[str_arr_idx] != null)
-		{		
-			doc.buffer2 = str_arr[str_arr_idx];
+		// file 다 읽을 때 까지..
+		while(data != "")
+		{
+			//buffer2 랑 좀 수정 해줘야함......알고리즘....
+			
 			node_type = doc.check(doc.buffer1, doc.buffer2);
-				
+		
+			// nested list , quoted처리 하는게 핵 어려울 듯........
+			// 미완
+			
 			doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 			
 			doc.buffer1 = doc.buffer2;
-			str_arr_idx++;	
+			
 		}
-
-		
+			
 		// setToken 
 		for(int i =0; i<doc.node_list.size();i++)
 		{
