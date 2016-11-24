@@ -1,0 +1,8 @@
+
+public class Document implements MDElement
+{
+	public void accept(MDElementVisitor visitor)
+	{
+		visitor.visitDocument(this);
+	}
+}

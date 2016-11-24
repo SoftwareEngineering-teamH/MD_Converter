@@ -1,0 +1,25 @@
+
+public class MDParser 
+{
+	//parsing method
+	public void parsing(String data, Document doc)
+	{
+		int node_type = 0;
+		
+		doc.md_data = data;
+		
+		// parsing algorithm
+		doc.buffer1 = doc.getLine(data);
+		
+		// file 다 읽을 때 까지..
+		while(true)
+		{
+			node_type = doc.check(doc.buffer1, doc.buffer2);
+			
+			doc.node_list.add(doc.setNode(node_type, doc.buffer1));
+		}
+		
+		
+	}
+
+}

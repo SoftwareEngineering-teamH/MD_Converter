@@ -1,0 +1,7 @@
+
+public interface MDElementVisitor 
+{
+	void visitDocument(Document doc);
+	String visitNode(Node node);
+	void visitToken(Token token);
+}
