@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MD2HTML" default="build" basedir=".">
+<description>jar Test!!!</description>
+	
+<property name="targetDir" value=".\lib"/>
+<property name="sourceDir" value="${basedir}\src"/>
+
+
+	
+<target name="build" depends="copy, compile, clean, jar">
+	<echo message="default success"/>
+</target>
+	
+	
+<target name="compile" depends="copy">
+	<javac srcdir="${sourceDir}" destdir="${targetDir}"/>
+	<echo message="file compile success"/>
+</target>
+	
+<target name="copy">
+	<mkdir dir="${targetDir}"/>
+	<echo message="make directory success"/>
+	
+	<copy todir="${targetDir}">
+		<fileset dir="${sourceDir}"/>
+	</copy>
+	<echo message="file copy success"/>
+</target>
+	
+<target name="jar" depends="copy, compile">
+	<jar destfile="${targetDir}/convert.jar"
+	     basedir="${targetDir}">
+            <manifest>
+                <attribute name = "Main-Class" value = "main"/>
+                <attribute name = "Class=Path" value = "${jar.classpath}"/>
+            </manifest>
+    </jar>
+	<echo message="jar compress success"/>
+	<delete>
+   		<fileset dir="${targetDir}" includes="**/*.class"/>
+    </delete>
+	
+</target>
+	
+<target name="clean" depends="copy, compile">
+	<delete>
+   		<fileset dir="${targetDir}" includes="**/*.java"/>
+    </delete>
+    <echo message="file delete success"/>
+</target>
+	
+</project>
