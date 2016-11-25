@@ -11,7 +11,7 @@ public class Token implements MDElement
 	int token_type = 0;
 	
 	//method
-	// This method overriding >  token_type  setting
+	// 얘도 overriding 해줘서 token_type 정해주기 
 	public Token create(String data)
 	{
 		this.data = data;

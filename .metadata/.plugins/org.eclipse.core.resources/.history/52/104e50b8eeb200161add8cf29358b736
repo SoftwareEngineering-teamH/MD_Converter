@@ -17,12 +17,12 @@ public class main
            data += sc.next();
            data += "\n";
         }
-		// data, type get form cli
+		// data, type 받기 
 		
-		// Document Object make.
+		// Document Object 만듦 
 		Document doc = new Document();
 		
-		// MDParser Object make.
+		// MDParser Object 만듦 
 		MDParser pars = new MDParser();
 		
 		////////////////
@@ -33,10 +33,8 @@ public class main
 		data += "7890\n";
 		*/
 		
-		// Parsing() >> In Document Object  node_list save
+		// Parsing() >> Document Object 에 node_list 저장
 		pars.parsing(data, doc);
-		
-		// test
 		for(int i=0;i<4;i++)
 			System.out.println(doc.node_list.get(i).md_data +"type:" + doc.node_list.get(i).node_type);
 		

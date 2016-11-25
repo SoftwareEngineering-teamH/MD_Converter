@@ -118,6 +118,9 @@ public class PlainVisitor implements MDElementVisitor
 			}
 			
 			
+			//node.token_list.get(i).token_type
+			// convert 부분
+			// 미완 
 		}
 		
 		// node finish tag generate
@@ -140,6 +143,7 @@ public class PlainVisitor implements MDElementVisitor
 	/*
 	public void visitToken(Token token)
 	{
+		// 여기서 토큰 하나하나 컨버트.....?
 		
 	}
 	*/
