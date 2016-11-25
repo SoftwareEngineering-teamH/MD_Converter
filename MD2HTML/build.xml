@@ -5,7 +5,9 @@
 <property name="targetDir" value=".\lib"/>
 <property name="sourceDir" value="${basedir}\src"/>
 
-
+<path id="classpath">
+	<fileset dir ="${basedir}" includes="jtidy-r938.jar"/>
+</path>
 	
 <target name="build" depends="copy, compile, clean, jar">
 	<echo message="default success"/>
@@ -13,7 +15,7 @@
 	
 	
 <target name="compile" depends="copy">
-	<javac srcdir="${sourceDir}" destdir="${targetDir}"/>
+	<javac srcdir="${sourceDir}" destdir = "${targetDir}" classpathref="classpath" includeantruntime="false" />
 	<echo message="file compile success"/>
 </target>
 	
@@ -32,7 +34,7 @@
 	     basedir="${targetDir}">
             <manifest>
                 <attribute name = "Main-Class" value = "main"/>
-                <attribute name = "Class=Path" value = "${jar.classpath}"/>
+                <attribute name = "Class-Path" value = "${basedir}\jtidy-r938"/>
             </manifest>
     </jar>
 	<echo message="jar compress success"/>
