@@ -29,18 +29,22 @@
 	
 <target name="jar" depends="copy, compile">
 	<jar destfile="${targetDir}/convert.jar"
-	     basedir="${targetDir}"
-	  />
+	     basedir="${targetDir}">
+            <manifest>
+                <attribute name = "Main-Class" value = "main"/>
+                <attribute name = "Class=Path" value = "${jar.classpath}"/>
+            </manifest>
+    </jar>
 	<echo message="jar compress success"/>
 	<delete>
-   		<fileset dir="${targetDir}" includes="**/*.java"/>
+   		<fileset dir="${targetDir}" includes="**/*.class"/>
     </delete>
 	
 </target>
 	
 <target name="clean" depends="copy, compile">
 	<delete>
-   		<fileset dir="${targetDir}" includes="**/*.class"/>
+   		<fileset dir="${targetDir}" includes="**/*.java"/>
     </delete>
     <echo message="file delete success"/>
 </target>
