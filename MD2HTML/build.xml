@@ -30,11 +30,14 @@
 </target>
 	
 <target name="jar" depends="copy, compile">
+	<manifestclasspath property="jar.classpath" jarfile="${basedir}\jtidy-r938">
+		<classpath refid="classpath"/>
+	</manifestclasspath>
 	<jar destfile="${targetDir}/convert.jar"
 	     basedir="${targetDir}">
             <manifest>
                 <attribute name = "Main-Class" value = "main"/>
-                <attribute name = "Class-Path" value = "${basedir}\jtidy-r938"/>
+                <attribute name = "Class-Path" value = "${jar.classpath}"/>
             </manifest>
     </jar>
 	<echo message="jar compress success"/>
