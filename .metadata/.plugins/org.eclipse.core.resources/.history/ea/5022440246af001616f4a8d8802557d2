@@ -1,6 +1,0 @@
-
-public interface MDElement 
-{
-	void accept(MDElementVisitor visitor);
-	String accept(MDElementVisitor visitor);
-}

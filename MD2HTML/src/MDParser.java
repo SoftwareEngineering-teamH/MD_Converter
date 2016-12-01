@@ -8,16 +8,18 @@ public class MDParser
 		
 		doc.md_data = data;
 		
+		//System.out.println("test : " +doc.md_data);
+		
 		// file is divided into string array by one sentence.
 		String[] str_arr = doc.md_data.split("\n");	
-		
-		System.out.println(str_arr[0]);
-		
 		int str_arr_idx = 0;
+		
+		
+		//for(int i = 0; i<str_arr.length; i++)
+			//System.out.println(i + "th split test" + str_arr[i]);
 		
 		// parsing algorithm
 		doc.buffer1 = str_arr[str_arr_idx];
-		
 		str_arr_idx++;
 		
 		// read file until the end

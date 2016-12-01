@@ -1,9 +1,0 @@
-
-public class MDParser 
-{
-	public void parsing(String data, String type, Document doc)
-	{
-		
-	}
-
-}

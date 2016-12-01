@@ -7,7 +7,8 @@ public class Document implements MDElement
 	static private int CodeBlock = 2;
 	static private int QuotedBlock = 3;
 	static private int ItemList = 4;
-	static private int TEXT = 5;
+	static private int Horizontal = 5;
+	static private int TEXT = 6;
 	
 	//accept 
 	public void accept(MDElementVisitor visitor)
@@ -31,7 +32,7 @@ public class Document implements MDElement
 	{
 		int type_num = 0;
 		
-		if(buffer2.contains("=="))
+		if(buffer2.contains("==") || buffer1.contains("#") || buffer1.contains("##") || buffer1.contains("###"))
 		{
 			// if second sentence has ==, then first node is Header
 			type_num = Header;
@@ -53,6 +54,11 @@ public class Document implements MDElement
 		{
 			// if sentence starts with tab(or 4 space), it is code block.
 			type_num = CodeBlock;
+		}
+		else if(buffer1.startsWith(""))
+		{
+			
+			type_num = Horizontal;
 		}
 		else
 		{
@@ -77,11 +83,14 @@ public class Document implements MDElement
 			QuotedBlock qb = new QuotedBlock();
 			return qb.create(data);
 		case 4 :
+			ItemList il = new ItemList();
+			return il.create(data);
+		case 5 :
 			Horizontal hz = new Horizontal();
 			return hz.create(data);
 		default :
-			ItemList il = new ItemList();
-			return il.create(data);
+			TextBlock tt = new TextBlock();
+			return tt.create(data);
 		}
 	}
 }
