@@ -21,7 +21,7 @@ public class MDParser
 		// parsing algorithm
 		doc.buffer1 = str_arr[str_arr_idx];
 		str_arr_idx++;
-		
+		//
 		// read file until the end
 		while(str_arr_idx < str_arr.length)
 		{		
