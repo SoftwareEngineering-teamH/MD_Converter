@@ -50,17 +50,7 @@ public class PlainVisitor implements MDElementVisitor
 					plain = new ArrayList<Character>();
 				}
 				//Style!
-				if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type == 2){
-					content = content.concat("<strong>");
-					i++;
-				}else if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type != 2){
-					content = content.concat("<em>");
-				}else if(node.token_list.get(i).token_type == 22 && node.token_list.get(i+1).token_type == 22 ){
-					content = content.concat("</strong>");
-					i++;
-				}else if(node.token_list.get(i).token_type == 22 && node.token_list.get(i+1).token_type != 22){
-					content = content.concat("</em>");
-				}
+				//if()
 				
 				//Escape!
 				if(node.token_list.get(i).token_type == 3)

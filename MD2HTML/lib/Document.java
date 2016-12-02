@@ -55,8 +55,7 @@ public class Document implements MDElement
 			// if sentence starts with tab(or 4 space), it is code block.
 			type_num = CodeBlock;
 		}
-		//how to check the repeated astalisk and hypen three more time?
-		else if(buffer1.startsWith("---"))
+		else if(buffer1.startsWith(""))
 		{
 			
 			type_num = Horizontal;

@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-//import org.w3c.tidy.Tidy;
+import org.w3c.tidy.Tidy;
 
 public class main 
 {
@@ -13,13 +13,11 @@ public class main
 		File file = new File(args[0]);
         Scanner sc = new Scanner(file);
         
-        // ???? \n¿ª ø÷?
         while(sc.hasNext()) 
         {
            data += sc.next();
            data += "\n";
         }
-        
 		// data, type get form cli
 		
 		// Document Object make.
