@@ -101,18 +101,11 @@ public class Document implements MDElement
 		else if(buffer1.startsWith("=="))
 		{
 			int list_s = this.node_list.size();
-			if(list_s == 0)
-			{
-				type_num = TEXT;
-			}
+			int node_t = this.node_list.get(list_s-1).node_type;
+			if(node_t == Header || node_t == 11 || node_t == 111 || node_t == 1111 || node_t == 11111 || node_t == 111111)
+				type_num = 0;
 			else
-			{
-				int node_t = this.node_list.get(list_s-1).node_type;
-				if(node_t == Header || node_t == 11 || node_t == 111 || node_t == 1111 || node_t == 11111 || node_t == 111111)
-					type_num = 0;
-				else
-					type_num = TEXT;
-			}
+				type_num = TEXT;
 		}
 		else
 		{
