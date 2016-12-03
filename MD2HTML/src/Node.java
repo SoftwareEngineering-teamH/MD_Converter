@@ -164,6 +164,33 @@ public class Node implements MDElement
 				StyleText stE = new StyleText();
 				this.token_list.add(stE.createEnd(data));
 				break;
+			case 4:
+				Link linkFirst = new Link();
+				this.token_list.add(linkFirst.createFirst(data));
+			case 44:
+				Link linkSec = new Link();
+				this.token_list.add(linkSec.createSecond(data));
+			case 444:
+				Link linkThird = new Link();
+				this.token_list.add(linkThird.createThird(data));
+			case 4444:
+				Link linkLast = new Link();
+				this.token_list.add(linkLast.createLast(data));
+			case 5:
+				Image imgFirst = new Image();
+				this.token_list.add(imgFirst.createFirst(data));
+			case 55:
+				Image imgSec = new Image();
+				this.token_list.add(imgSec.createSecond(data));
+			case 555:
+				Image imgThird = new Image();
+				this.token_list.add(imgThird.createThird(data));
+			case 5555:
+				Image imgFour = new Image();
+				this.token_list.add(imgFour.createFourth(data));
+			case 55555:
+				Image imgLast = new Image();
+				this.token_list.add(imgLast.createLast(data));
 			default :
 				break;
 			}	
