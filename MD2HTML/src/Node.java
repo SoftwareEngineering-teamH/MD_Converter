@@ -38,16 +38,21 @@ public class Node implements MDElement
 		//init
 		for(int i=0; i<token_arr.length;i++)
 			token_arr[i]=0;
+		
 		//init stack_style
 		for(int i=0; i<stack_style.length;i++)
 			stack_style[i]=stack_style.length;
+		
 		int j = 0;
 		int em_count = 0;
 		int strong_count=0;
 		int three_over = 1;
+		
 		boolean style_strong_flag = false;
 		boolean style_em_flag = true;
+		
 		//boolean buf_zero_style = false;
+		
 		// style - algorithm
 		for(int i = 0; i<token_arr.length; i++)
 		{
@@ -56,31 +61,39 @@ public class Node implements MDElement
 			{
 				//if(i ==0)buf_zero_style = true;
 				
-				if(i+1<token_arr.length && md_data.charAt(i) == '*' && md_data.charAt(i+1) == '*'){
+				if(i+1<token_arr.length && md_data.charAt(i) == '*' && md_data.charAt(i+1) == '*')
+				{
 					style_strong_flag = true;
 					style_em_flag=false;
 					three_over++;
-					if(three_over>=3){
+					if(three_over>=3)
+					{
 						token_arr[i-1] = token_arr[i] = token_arr[i+1] =0;
 					}
 					
-				}else if(i-1>=0&& md_data.charAt(i) == '*' && md_data.charAt(i-1) != '*'){
+				}
+				else if(i-1 >= 0 && md_data.charAt(i) == '*' && md_data.charAt(i-1) != '*')
+				{
 					style_strong_flag = false;
 					style_em_flag=true;
 					three_over = 0;
 				}
-				if(style_strong_flag == true && style_em_flag==false)strong_count++;
-				if(style_strong_flag == false && style_em_flag==true)em_count++;
+				if(style_strong_flag == true && style_em_flag==false)
+					strong_count++;
+				if(style_strong_flag == false && style_em_flag==true)
+					em_count++;
 					//count=j+1;
 				//this stack is to know which index have *
 				stack_style[j] = i;
 				
-				if(em_count == 1 && style_em_flag == true && style_strong_flag ==false){
+				if(em_count == 1 && style_em_flag == true && style_strong_flag ==false)
+				{
 				token_arr[i] = 2;
 				//count = 0;
 				}
 				
-				else if(em_count == 2 && style_em_flag == true && style_strong_flag ==false){
+				else if(em_count == 2 && style_em_flag == true && style_strong_flag ==false)
+				{
 					token_arr[i] = 22;
 					em_count=0;
 					stack_style[j] = stack_style[j-1]=stack_style.length;;
@@ -88,20 +101,24 @@ public class Node implements MDElement
 				}
 				
 				//strong
-				else if(strong_count == 1 &&style_strong_flag == true && style_em_flag ==false){
+				else if(strong_count == 1 && style_strong_flag == true && style_em_flag ==false)
+				{
 					token_arr[i] = 2;
 					
 				}
 				
-				else if(strong_count == 2&&style_strong_flag == true&& style_em_flag ==false){
+				else if(strong_count == 2 && style_strong_flag == true && style_em_flag ==false)
+				{
 					token_arr[i] = 2;
 					//count = 0;
 				}
-				else if(strong_count == 3&&style_strong_flag == true&& style_em_flag ==false){
+				else if(strong_count == 3 && style_strong_flag == true && style_em_flag ==false)
+				{
 					token_arr[i] = 22;
 					//count = 0;
 				}
-				else if(strong_count == 4&&style_strong_flag == true&& style_em_flag ==false){
+				else if(strong_count == 4 && style_strong_flag == true && style_em_flag ==false)
+				{
 					token_arr[i] = 22;
 					strong_count = 0;
 					//count = 0;
@@ -110,10 +127,7 @@ public class Node implements MDElement
 					stack_style[j] = stack_style[j-1] = stack_style[j-2] =stack_style[j-3] =stack_style.length;;
 					j= j-4;
 				}
-				
-				
-				
-					j++;
+				j++;
 				//style_strong_flag = false;
 				/*try
 				{
@@ -137,8 +151,10 @@ public class Node implements MDElement
 				}*/
 			}
 		}
-		//´Ù µ¹°í¼­ *Â¦ÀÌ ¸ÂÁö ¾Ê´Â °ÍµéÀº ¸ðµÎ 0À¸·Î ¹Ù²ãÁÖ±â. 
-		for(int k=0;k<stack_style.length;k++){
+		
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ *Â¦ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½Ö±ï¿½. 
+		for(int k=0;k<stack_style.length;k++)
+		{
 			if(stack_style[k] != stack_style.length)token_arr[stack_style[k]] = 0;
 			else break;
 		}
@@ -191,11 +207,11 @@ public class Node implements MDElement
 			return "<h6>";
 		case 2:
 			return "<pre><code>";
-		// ItemList´Â ¾ÆÁ÷ Á¤È®È÷ Ã³¸®ÇÏÁö ¾ÊÀº »óÅÂ (ordered/unordered ±¸º°¸¸ ÇØ ³õÀ½)
+		// ItemListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ordered/unordered ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 		case 4:
-			return "<ul><li>";
+			return "<ul>";
 		case 44:
-			return "<ol><li>";
+			return "<ol>";
 		default :
 			return "<br>";
 		}
@@ -220,9 +236,9 @@ public class Node implements MDElement
 		case 2:
 			return "</code></pre>";
 		case 4:
-			return "</li></ul>";
+			return "</ul>";
 		case 44:
-			return "</li></ol>";
+			return "</ol>";
 		default :
 			return "</br>";
 		}
