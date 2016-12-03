@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class Document implements MDElement
 {
 	//Node type
-	static private int Header = 1;
-	static private int CodeBlock = 2;
-	static private int QuotedBlock = 3;
-	static private int ItemList = 4;
-	static private int Horizontal = 5;
-	static private int TEXT = 6;
+	static final private int Header = 1;
+	static final private int CodeBlock = 2;
+	static final private int QuotedBlock = 3;
+	static final private int ItemList = 4;
+	static final private int Horizontal = 5;
+	static final private int TEXT = 6;
 	
 	//accept 
 	public void accept(MDElementVisitor visitor)
@@ -29,12 +29,37 @@ public class Document implements MDElement
 	{
 		int type_num = 0;
 		
-		if(buffer2.startsWith("==") || buffer2.startsWith("==") || buffer1.startsWith("#") || buffer1.startsWith("##") || buffer1.startsWith("###"))
+		if(buffer2.startsWith("==") || buffer2.startsWith("--"))
 		{
-			// if second sentence has ==, then first node is Header
-			type_num = Header;
+			int isH = 3;
+			
+			if(buffer2.startsWith("=="))
+			{
+				String[] str_hdc = buffer2.split("=");
+				if(str_hdc.length == 0)
+					isH = 1;
+				else
+					isH = 3;
+			}
+			else if(buffer2.startsWith("--"))
+			{
+				String[] str_hdc = buffer2.split("-");
+				if(str_hdc.length == 0)
+					isH = 2;
+				else
+					isH = 3;
+			}
+			
+			if(isH == 1)
+				type_num = Header;
+			else if(isH == 2)
+				type_num = 11;
+			else
+				type_num = TEXT;
 		}
-		else if(buffer1.startsWith("=="))
+		else if(buffer1.startsWith("# ") || buffer1.startsWith("## ") || buffer1.startsWith("### "))
+			type_num = Header;
+		else if(buffer1.startsWith("==") || buffer1.startsWith("--"))
 		{
 			//TEXT
 			type_num = 0;
@@ -56,11 +81,6 @@ public class Document implements MDElement
 			// if sentence starts with tab(or 4 space), it is code block.
 			type_num = CodeBlock;
 		}
-		//how to check the repeated astalisk and hypen three more time?
-		else if(buffer1.startsWith("---"))
-		{
-			type_num = Horizontal;
-		}
 		else
 		{
 			type_num = TEXT;
@@ -68,22 +88,18 @@ public class Document implements MDElement
 		
 		return type_num;
 	}
-	public int check(String[] buffer){
-		int type_num = 0;
-		
-		
-		return type_num;
-	}
 
-	
 	public Node setNode(int type, String data)
 	{
 		switch(type)
 		{
 		case 1 : 
 			Header hd = new Header();
-			return hd.create(data);
-		case 2 : 
+			return hd.create(data, type);
+		case 11 : 
+			Header hd2 = new Header();
+			return hd2.create(data, type);
+		case 2 :
 			CodeBlock cb  = new CodeBlock();
 			return cb.create(data);
 		case 3 :

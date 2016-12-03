@@ -38,6 +38,7 @@ public class PlainVisitor implements MDElementVisitor
 				{
 					char c = node.token_list.get(i).data.charAt(0);
 					plain.add(c);
+					
 				}
 				else if(node.token_list.get(i).token_type != 1)
 				{
@@ -88,11 +89,20 @@ public class PlainVisitor implements MDElementVisitor
 			else if(node.token_list.get(i).token_type == 4444)
 			{
 				link_flag = false;
+				plain.remove(plain.size()-1);
 				String link = this.Charlist2String(plain);
 				plain = new ArrayList<Character>();
-				String s[] = link.split(" ");
-				String str = "<a herf=\"" + s[0] + "\" title =" + s[1] + ">" + tmp_id + "</a>";
-				content=content.concat(str);
+				String a = " ";
+				if(link.contains(a) == true)
+				{
+					String s[] = link.split(" ");
+					String str = "<a href=\"" + s[0] + "\" title=" + s[1] + ">" + tmp_id + "</a>";
+					content=content.concat(str);
+				}else
+				{
+					String str = "<a href=\"" + link + "\">"+tmp_id + "</a>"; 
+					content=content.concat(str);
+				}
 			}
 			
 			//image!
@@ -112,6 +122,7 @@ public class PlainVisitor implements MDElementVisitor
 			else if(node.token_list.get(i).token_type == 5555)
 			{
 				img_flag = false;
+				plain.remove(plain.size()-1);
 				String img = this.Charlist2String(plain);
 				plain = new ArrayList<Character>();
 				String a = " ";
@@ -119,12 +130,12 @@ public class PlainVisitor implements MDElementVisitor
 				{
 					String s[] = img.split(" ");
 					image_path = s[0];
-					String str = "img src=\"" + image_path + "\" title=" + s[1] + "alt="+tmp_id + ">"; 
+					String str = "<img src=\"" + image_path + "\" title=" + s[1] + " alt="+tmp_id + ">"; 
 					content = content.concat(str);
 				}
 				else
 				{
-					String str = "<img src=\"" + img + "alt="+tmp_id + ">"; 
+					String str = "<img src=\"" + img + " alt="+tmp_id + ">"; 
 					content=content.concat(str);
 				}
 			}
@@ -136,7 +147,8 @@ public class PlainVisitor implements MDElementVisitor
 			}
 			
 		}
-		
+		String str = this.Charlist2String(plain);
+		content = content.concat(str);
 		// node finish tag generate
 		content += node.setEndTag();
 		content += "\n";

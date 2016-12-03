@@ -25,18 +25,10 @@ public class Image extends Token implements MDElement
 		return this;
 	}
 	
-	public Token createFourth(String data)
-	{
-		this.data = data;
-		this.token_type = 5555;
-	
-		return this;
-	}
-
 	public Token createLast(String data)
 	{
 		this.data = data;
-		this.token_type = 55555;
+		this.token_type = 5555;
 	
 		return this;
 	}
