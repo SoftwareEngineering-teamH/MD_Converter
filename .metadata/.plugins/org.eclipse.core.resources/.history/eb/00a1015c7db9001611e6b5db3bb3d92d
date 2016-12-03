@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-import org.w3c.tidy.Tidy;
+//import org.w3c.tidy.Tidy;
 
 public class main 
 {
@@ -90,15 +90,21 @@ public class main
 	                           else
 	                           {
 	                               Scanner sc = new Scanner(file);
-	                               
-	                               while(sc.hasNext()) 
-	                               {
+	                                while(sc.hasNext()) 
+	                                  {
 	                                     data += sc.nextLine();
 	                                     data += "\n";
-	                               }
-	                               type += "fancy";
-	                                
-	                               System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_fancy") +".html"+">★\n\n"); 
+	                                  }
+	                              // data, type get form cli
+	                              
+	                              // Document Object make.
+	                              Document doc = new Document();
+	                              
+	                              // MDParser Object make.
+	                              MDParser pars = new MDParser();
+	                              pars.parsing(data, doc);
+	                              doc.accept(new FancyVisitor());
+	                              System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_fancy") +".html"+">★\n\n"); 
 	                           }
 	                     }
 	               }
@@ -128,19 +134,26 @@ public class main
 	                           file = new File(args[2]);
 	                           if (!file.isFile())
 	                           {
-	                        	   System.out.println(" [ERROR: File Not Founded]: "+"<"+ args[2]+">is out of existence.");
+	                              System.out.println(" [ERROR: File Not Founded]: "+"<"+ args[2]+">is out of existence.");
 	                           }
 	                           else
-	                           {   
+	                           {
 	                               Scanner sc = new Scanner(file);
 	                               while(sc.hasNext()) 
-	                               {
-	                                   data += sc.nextLine();
-	                                   data += "\n";
-	                               }
-	                               type += "plain";
-	                               
-	                               System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">★\n\n");
+	                                 {
+	                                    data += sc.nextLine();
+	                                    data += "\n";
+	                                 }
+	                              // data, type get form cli
+	                              
+	                              // Document Object make.
+	                              Document doc = new Document();
+	                              
+	                              // MDParser Object make.
+	                              MDParser pars = new MDParser();
+	                              pars.parsing(data, doc);
+	                              doc.accept(new PlainVisitor());
+	                              System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">★\n\n");
 	                           }
 	                        }
 	                     }
@@ -176,13 +189,20 @@ public class main
 	                           {
 	                               Scanner sc = new Scanner(file);
 	                               while(sc.hasNext()) 
-	                               {
+	                                 {
 	                                    data += sc.nextLine();
 	                                    data += "\n";
-	                               }
-	                               type += "plain";
-	                               
-	                               System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">★\n\n");
+	                                 }
+	                              // data, type get form cli
+	                              
+	                              // Document Object make.
+	                              Document doc = new Document();
+	                              
+	                              // MDParser Object make.
+	                              MDParser pars = new MDParser();
+	                              pars.parsing(data, doc);
+	                              doc.accept(new PlainVisitor());
+	                              System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">★\n\n");
 	                           }
 	                        }
 	                     }
@@ -218,6 +238,8 @@ public class main
 		// Parsing() >> In Document Object  node_list save
 		pars.parsing(data, doc);
 		
+		/////test
+		type = "plain";
 		// Document Object.accept((type)Visitor) 
 		switch (type)
 		{
@@ -231,6 +253,8 @@ public class main
 			doc.accept(new FancyVisitor());
 			break;
 		}
+		
+	     
 	     
 		// html error test
 		

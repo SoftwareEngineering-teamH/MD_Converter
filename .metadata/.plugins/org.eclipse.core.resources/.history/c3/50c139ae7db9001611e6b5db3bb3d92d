@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-import org.w3c.tidy.Tidy;
+//import org.w3c.tidy.Tidy;
 
 public class main 
 {
@@ -231,6 +231,8 @@ public class main
 			doc.accept(new FancyVisitor());
 			break;
 		}
+		
+	     
 	     
 		// html error test
 		

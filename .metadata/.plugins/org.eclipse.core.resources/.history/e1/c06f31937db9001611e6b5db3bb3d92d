@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-import org.w3c.tidy.Tidy;
+//import org.w3c.tidy.Tidy;
 
 public class main 
 {
@@ -218,6 +218,8 @@ public class main
 		// Parsing() >> In Document Object  node_list save
 		pars.parsing(data, doc);
 		
+		/////test
+		type = "plain";
 		// Document Object.accept((type)Visitor) 
 		switch (type)
 		{
@@ -231,6 +233,8 @@ public class main
 			doc.accept(new FancyVisitor());
 			break;
 		}
+		
+	     
 	     
 		// html error test
 		
