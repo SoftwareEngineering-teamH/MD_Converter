@@ -236,7 +236,7 @@ public class Node implements MDElement
 		case Horizontal :
 			return "<hr />";
 		default :
-			return "<br>";
+			return "";
 		}
 	}
 	
@@ -267,7 +267,7 @@ public class Node implements MDElement
 		case Horizontal:
 			return "";
 		default :
-			return "</br>";
+			return "<br>";
 		}
 	}
 }

@@ -1,6 +1,14 @@
 
 public class MDParser 
 {
+	//Node type
+	static final private int Header = 1;
+	static final private int CodeBlock = 2;
+	static final private int QuotedBlock = 3;
+	static final private int ItemList = 4;
+	static final private int Horizontal = 5;
+	static final private int TEXT = 6;
+	
 	//parsing method
 	public void parsing(String data, Document doc)
 	{
@@ -29,13 +37,16 @@ public class MDParser
 				
 				while(!doc.buffer2.equals(""))
 				{
+					if(doc.check(doc.buffer2, doc.buffer2) == Horizontal || doc.check(doc.buffer2, doc.buffer2) == 44)
+						break;
+					
 					if(doc.buffer2.startsWith("* "))
 						doc.buffer2 = "<li>" + doc.buffer2.substring(2,doc.buffer2.length()) + "</li>";
 					else
 						doc.buffer2 += "<br>";
 					
-					if(doc.check(doc.buffer2, doc.buffer2) == 44)
-						break;
+					//if(doc.check(doc.buffer2, doc.buffer2) == 44)
+						//break;
 					
 					doc.buffer1 += doc.buffer2;
 					str_arr_idx++;
@@ -48,22 +59,46 @@ public class MDParser
 			}
 			else if(node_type == 44)
 			{	
-				doc.buffer1 = "<li>" + doc.buffer1.substring(2,doc.buffer1.length()) + "</li>";
+				doc.buffer1 = "<li>" + doc.buffer1.substring(doc.buffer1.indexOf('.') + 2, doc.buffer1.length()) + "</li>";
 				
 				while(!doc.buffer2.equals(""))
 				{
-					if(doc.buffer2.startsWith("1."))
-						doc.buffer2 = "<li>" + doc.buffer2.substring(2,doc.buffer2.length()) + "</li>";
+					if(doc.check(doc.buffer2, doc.buffer2) == Horizontal || doc.check(doc.buffer2, doc.buffer2) == 4)
+						break;
+					
+					if(checkItem(doc.buffer2))
+						doc.buffer2 = "<li>" + doc.buffer2.substring(doc.buffer2.indexOf('.') + 2, doc.buffer2.length()) + "</li>";
 					else
 							doc.buffer2 += "<br>";
 					
-					if(doc.check(doc.buffer2, doc.buffer2) == 4)
-						break;
+					//if(doc.check(doc.buffer2, doc.buffer2) == 4)
+						//break;
 					
 					doc.buffer1 += doc.buffer2;
 					str_arr_idx++;
 					if(str_arr_idx == str_arr.length)
 						break;
+					doc.buffer2 = str_arr[str_arr_idx];
+				}
+			}
+			else if(node_type == 3)
+			{	
+				doc.buffer1 += "<br>";
+				
+				while(!doc.buffer2.equals(""))
+				{
+					if(doc.check(doc.buffer2, doc.buffer2) == Horizontal || doc.check(doc.buffer2, doc.buffer2) == 4 || doc.check(doc.buffer2, doc.buffer2) == 44)
+						break;
+					
+					if(doc.buffer2.startsWith("> "))
+						doc.buffer2 = doc.buffer2.substring(2,doc.buffer2.length());
+					
+					doc.buffer1 = doc.buffer1 + doc.buffer2 + "<br>";
+					str_arr_idx++;
+					
+					if(str_arr_idx == str_arr.length)
+						break;
+					
 					doc.buffer2 = str_arr[str_arr_idx];
 				}
 			}
@@ -77,8 +112,10 @@ public class MDParser
 			
 			if(str_arr_idx == str_arr.length)
 			{
-				node_type = doc.check(doc.buffer2, doc.buffer2);
-				doc.node_list.add(doc.setNode(node_type, doc.buffer2));
+				doc.buffer2 = str_arr[str_arr_idx-1];
+				node_type = doc.check(doc.buffer2, "");
+				if (node_type != 0)
+					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 			}
 			
 		}
@@ -97,4 +134,27 @@ public class MDParser
 			doc.node_list.get(i).setToken();
 		}
 	}
+	
+	public boolean checkItem(String data)
+	{
+		int index = data.indexOf('.');
+		if(index == -1)
+			return false;
+		String str_list = data.substring(0, index);
+		if(str_list != null)
+		{
+			try
+			{
+				Integer.parseInt(str_list);
+				return true;
+			}
+			catch (Exception e)
+			{
+				return false;
+			}
+		}
+		else
+			return false;
+	}
+	
 }
