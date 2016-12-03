@@ -38,7 +38,7 @@ public class Document implements MDElement
 			type_num = Header;
 		}
 		else if(buffer1.contains("=="))
-		{
+		{//TEXT
 			type_num = 0;
 		}
 		else if(buffer1.startsWith("* "))

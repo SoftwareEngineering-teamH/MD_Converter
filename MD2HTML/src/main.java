@@ -14,12 +14,16 @@ public class main
         Scanner sc = new Scanner(file);
         
         // ???? \n¿ª ø÷?
-        while(sc.hasNext()) 
+        /*while(sc.hasNext()) 
         {
            data += sc.next();
            data += "\n";
+        }*/
+        while(sc.hasNext()) 
+        {
+           data += sc.nextLine();
+           data += "\n";
         }
-        
 		// data, type get form cli
 		
 		// Document Object make.
