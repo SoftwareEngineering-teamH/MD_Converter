@@ -228,13 +228,13 @@ public class Node implements MDElement
 		case CodeBlock:
 			return "<pre><code>";
 		case QuotedBlock:
-			return "<blockquote>";
+			return "";
 		case ItemList:
 			return "<ul>";
 		case 44:
 			return "<ol>";
 		case Horizontal :
-			return "<hr />";
+			return "";
 		default :
 			return "<br>";
 		}
@@ -259,7 +259,7 @@ public class Node implements MDElement
 		case CodeBlock:
 			return "</code></pre>";
 		case QuotedBlock:
-			return "</blockquote>";
+			return "";
 		case ItemList:
 			return "</ul>";
 		case 44:

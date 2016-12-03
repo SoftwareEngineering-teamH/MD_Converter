@@ -140,8 +140,13 @@ public class PlainVisitor implements MDElementVisitor
 				}
 			}
 			
+			//html code!
+			if(node.token_list.get(i).token_type == 6)
+			{
+				
+			}
+			
 		}
-		
 		String str = this.Charlist2String(plain);
 		content = content.concat(str);
 		// node finish tag generate

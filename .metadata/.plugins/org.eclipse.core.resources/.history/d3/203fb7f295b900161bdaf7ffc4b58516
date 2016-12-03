@@ -228,7 +228,7 @@ public class Node implements MDElement
 		case CodeBlock:
 			return "<pre><code>";
 		case QuotedBlock:
-			return "<blockquote>";
+			return "<q>";
 		case ItemList:
 			return "<ul>";
 		case 44:
@@ -259,7 +259,7 @@ public class Node implements MDElement
 		case CodeBlock:
 			return "</code></pre>";
 		case QuotedBlock:
-			return "</blockquote>";
+			return "</q>";
 		case ItemList:
 			return "</ul>";
 		case 44:

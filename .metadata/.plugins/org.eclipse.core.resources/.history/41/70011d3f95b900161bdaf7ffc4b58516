@@ -38,7 +38,7 @@ public class Document implements MDElement
 		{
 			type_num = 44;
 		}
-		else if(buffer1.startsWith("> "))
+		else if(buffer1.startsWith(">"))
 		{
 			type_num = QuotedBlock;
 		}
@@ -88,7 +88,7 @@ public class Document implements MDElement
 			else
 			{
 				int node_t = this.node_list.get(list_s-1).node_type;
-				if(node_t == Header || node_t == 11 || node_t == 111 || node_t == 1111 || node_t == 11111 || node_t == 111111 || node_t == 2 || node_t == 3 || node_t == 5)
+				if(node_t == Header || node_t == 11 || node_t == 111 || node_t == 1111 || node_t == 11111 || node_t == 111111 || node_t == 2 || node_t == 3 || node_t == 4 || node_t == 5)
 				{
 					type_num = Horizontal;
 				}
