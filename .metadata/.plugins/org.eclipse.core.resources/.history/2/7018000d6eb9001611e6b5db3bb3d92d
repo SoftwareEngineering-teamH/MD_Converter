@@ -8,6 +8,8 @@ public class MDParser
 		
 		doc.md_data = data;
 		
+		//System.out.println("test : " +doc.md_data);
+		
 		// file is divided into string array by one sentence.
 		String[] str_arr = doc.md_data.split("\n");	
 		int str_arr_idx = 0;
@@ -31,10 +33,8 @@ public class MDParser
 				{
 					if(doc.buffer2.startsWith("* "))
 						doc.buffer2 = "<li>" + doc.buffer2.substring(2,doc.buffer2.length()) + "</li>";
-					else
-						doc.buffer2 += "<br>";
 					
-					if(doc.check(doc.buffer2, doc.buffer2) == 44)
+					else if(doc.check(doc.buffer2, doc.buffer2) == 44)
 						break;
 					
 					doc.buffer1 += doc.buffer2;
@@ -54,10 +54,8 @@ public class MDParser
 				{
 					if(doc.buffer2.startsWith("1."))
 						doc.buffer2 = "<li>" + doc.buffer2.substring(2,doc.buffer2.length()) + "</li>";
-					else
-							doc.buffer2 += "<br>";
 					
-					if(doc.check(doc.buffer2, doc.buffer2) == 4)
+					else if(doc.check(doc.buffer2, doc.buffer2) == 4)
 						break;
 					
 					doc.buffer1 += doc.buffer2;
@@ -81,6 +79,8 @@ public class MDParser
 				doc.node_list.add(doc.setNode(node_type, doc.buffer2));
 			}
 			
+			//setNode
+			//doc.node_list.add(doc.setNode(node_type, doc.buffer2));
 		}
 		
 		if(str_arr_idx == 1)

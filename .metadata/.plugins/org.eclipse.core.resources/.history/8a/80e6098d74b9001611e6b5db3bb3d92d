@@ -1,0 +1,72 @@
+import java.io.*;
+import java.util.Scanner;
+//import org.w3c.tidy.Tidy;
+
+public class main 
+{
+	public static void main(String[] args) throws IOException
+	{
+		String data = ""; 
+		String type = "";
+		
+		// CLI part >> (CLI class??)
+		File file = new File(args[0]);
+        Scanner sc = new Scanner(file);
+        
+        while(sc.hasNext()) 
+        {
+           data += sc.nextLine();
+           data += "\n";
+        }
+		// data, type get form cli
+		
+		// Document Object make.
+		Document doc = new Document();
+		
+		// MDParser Object make.
+		MDParser pars = new MDParser();
+		
+		
+		// Parsing() >> In Document Object  node_list save
+		pars.parsing(data, doc);
+		
+		//////////////////////////////////////////////////////////////////
+		/////test
+		type = "plain";
+		// Document Object.accept((type)Visitor) 
+		switch (type)
+		{
+		case "plain" : 
+			doc.accept(new PlainVisitor());
+			break;
+		case "slide" : 
+			doc.accept(new SlideVisitor());
+			break;
+		default	:  
+			doc.accept(new FancyVisitor());
+			break;
+		}
+		
+		// html error test
+		
+		/*
+		Tidy tidy = new Tidy();
+   		InputStream stream = new ByteArrayInputStream(doc.html_data.getBytes());
+   		tidy.parse(stream, System.out);
+   		
+   		if (tidy.getParseErrors() != 0 )
+   			System.out.println("error exist");
+   		else if (tidy.getParseErrors() == 0)
+   			System.out.println("No error");
+		*/
+		
+		// Document Object.htmlData >> file output
+		
+		//doc.html_data test 
+		System.out.println(doc.html_data);
+		
+		//end
+	}
+}
+
+

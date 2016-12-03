@@ -19,6 +19,8 @@ public class Document implements MDElement
 	// attribute
 	String buffer1 = "";
 	String buffer2 = "";
+	String list_bf = "";
+	String quoted_bf = "";
 	String md_data = "";
 	String html_data = "";
 	
@@ -29,12 +31,12 @@ public class Document implements MDElement
 	{
 		int type_num = 0;
 		
-		if(buffer2.startsWith("==") || buffer2.startsWith("==") || buffer1.startsWith("#") || buffer1.startsWith("##") || buffer1.startsWith("###"))
+		if(buffer2.startsWith("==") || buffer1.startsWith("#") || buffer1.startsWith("##") || buffer1.startsWith("###"))
 		{
 			// if second sentence has ==, then first node is Header
 			type_num = Header;
 		}
-		else if(buffer1.startsWith("=="))
+		else if(buffer1.contains("=="))
 		{
 			//TEXT
 			type_num = 0;
@@ -104,6 +106,18 @@ public class Document implements MDElement
 		}
 	}
 
+	public Node setNode(int type, String[] data)
+	{
+		switch(type)
+		{
+		
+		case 4 :
+			ItemList il = new ItemList();
+			return il.create(data);
+		
+		}
+		return null;
+	}
 }
 
 

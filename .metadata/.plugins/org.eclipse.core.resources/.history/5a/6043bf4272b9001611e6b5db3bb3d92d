@@ -69,6 +69,7 @@ public class Node implements MDElement
 		
 		for(int i = 0; i<md_data.length(); i++)
 		{
+			System.out.print(token_arr[i]);
 			String data = md_data.substring(i, i+1);
 			switch (token_arr[i])
 			{
@@ -79,11 +80,9 @@ public class Node implements MDElement
 			case 2 :
 				StyleText st = new StyleText();
 				this.token_list.add(st.create(data));
-				break;
 			case 22 :
 				StyleText stE = new StyleText();
 				this.token_list.add(stE.createEnd(data));
-				break;
 			default :
 				break;
 			}	

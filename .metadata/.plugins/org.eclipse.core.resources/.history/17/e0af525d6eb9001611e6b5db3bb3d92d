@@ -8,6 +8,8 @@ public class MDParser
 		
 		doc.md_data = data;
 		
+		//System.out.println("test : " +doc.md_data);
+		
 		// file is divided into string array by one sentence.
 		String[] str_arr = doc.md_data.split("\n");	
 		int str_arr_idx = 0;

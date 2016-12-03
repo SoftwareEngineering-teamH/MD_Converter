@@ -79,11 +79,9 @@ public class Node implements MDElement
 			case 2 :
 				StyleText st = new StyleText();
 				this.token_list.add(st.create(data));
-				break;
 			case 22 :
 				StyleText stE = new StyleText();
 				this.token_list.add(stE.createEnd(data));
-				break;
 			default :
 				break;
 			}	

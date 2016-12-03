@@ -69,6 +69,7 @@ public class Node implements MDElement
 		
 		for(int i = 0; i<md_data.length(); i++)
 		{
+			System.out.println(token_arr[i]);
 			String data = md_data.substring(i, i+1);
 			switch (token_arr[i])
 			{

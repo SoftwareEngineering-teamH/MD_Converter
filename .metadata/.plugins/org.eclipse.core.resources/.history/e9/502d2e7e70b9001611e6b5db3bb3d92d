@@ -19,6 +19,8 @@ public class Document implements MDElement
 	// attribute
 	String buffer1 = "";
 	String buffer2 = "";
+	String list_bf = "";
+	String quoted_bf = "";
 	String md_data = "";
 	String html_data = "";
 	
@@ -104,6 +106,18 @@ public class Document implements MDElement
 		}
 	}
 
+	public Node setNode(int type, String[] data)
+	{
+		switch(type)
+		{
+		
+		case 4 :
+			ItemList il = new ItemList();
+			return il.create(data);
+		
+		}
+		return null;
+	}
 }
 
 
