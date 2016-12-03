@@ -170,22 +170,17 @@ public class Node implements MDElement
 		switch(this.node_type)
 		{
 		case 1:
-			// if header_type =1 > #, 2 > ##
+			// if header_type =1 > #, 11 > ##
 			return "<h1>";
 		case 11:
-			// if header_type =1 > #, 2 > ##
 			return "<h2>";
 		case 111:
-			// if header_type =1 > #, 2 > ##
 			return "<h3>";
 		case 1111:
-			// if header_type =1 > #, 2 > ##
 			return "<h4>";
 		case 11111:
-			// if header_type =1 > #, 2 > ##
 			return "<h5>";
 		case 111111:
-			// if header_type =1 > #, 2 > ##
 			return "<h6>";
 		case 2:
 			return "<pre><code>";
@@ -206,19 +201,14 @@ public class Node implements MDElement
 		case 1:
 			return "</h1>";
 		case 11:
-			// if header_type =1 > #, 2 > ##
 			return "</h2>";
 		case 111:
-			// if header_type =1 > #, 2 > ##
 			return "</h3>";
 		case 1111:
-			// if header_type =1 > #, 2 > ##
 			return "</h4>";
 		case 11111:
-			// if header_type =1 > #, 2 > ##
 			return "</h5>";
 		case 111111:
-			// if header_type =1 > #, 2 > ##
 			return "</h6>";
 		case 2:
 			return "</code></pre>";
