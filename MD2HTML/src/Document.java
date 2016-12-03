@@ -41,9 +41,10 @@ public class Document implements MDElement
 		{
 			type_num = 0;
 		}
-		else if(buffer1.startsWith("* "))
+		else if(buffer1.startsWith("* ") || buffer1.startsWith("+ ") || buffer1.startsWith("- "))
 		{
-			//if sentence starts with asterisk(*) and one space bar, it is Item List.
+			// if sentence starts with asterisk(*) and one space bar, it is Item List.
+			// +, - Ãß°¡ÇÔ
 			type_num = ItemList;
 		}
 		else if(buffer1.startsWith(">"))

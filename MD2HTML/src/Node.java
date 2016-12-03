@@ -172,8 +172,28 @@ public class Node implements MDElement
 		case 1:
 			// if header_type =1 > #, 2 > ##
 			return "<h1>";
+		case 11:
+			// if header_type =1 > #, 2 > ##
+			return "<h2>";
+		case 111:
+			// if header_type =1 > #, 2 > ##
+			return "<h3>";
+		case 1111:
+			// if header_type =1 > #, 2 > ##
+			return "<h4>";
+		case 11111:
+			// if header_type =1 > #, 2 > ##
+			return "<h5>";
+		case 111111:
+			// if header_type =1 > #, 2 > ##
+			return "<h6>";
 		case 2:
 			return "<pre><code>";
+		// ItemList는 아직 정확히 처리하지 않은 상태 (ordered/unordered 구별만 해 놓음)
+		case 4:
+			return "<ul><li>";
+		case 44:
+			return "<ol><li>";
 		default :
 			return "<br>";
 		}
@@ -185,8 +205,27 @@ public class Node implements MDElement
 		{
 		case 1:
 			return "</h1>";
+		case 11:
+			// if header_type =1 > #, 2 > ##
+			return "</h2>";
+		case 111:
+			// if header_type =1 > #, 2 > ##
+			return "</h3>";
+		case 1111:
+			// if header_type =1 > #, 2 > ##
+			return "</h4>";
+		case 11111:
+			// if header_type =1 > #, 2 > ##
+			return "</h5>";
+		case 111111:
+			// if header_type =1 > #, 2 > ##
+			return "</h6>";
 		case 2:
 			return "</code></pre>";
+		case 4:
+			return "</li></ul>";
+		case 44:
+			return "</li></ol>";
 		default :
 			return "</br>";
 		}
