@@ -35,36 +35,115 @@ public class Node implements MDElement
 		int length = md_data.length();
 		int[] token_arr = new int[length];
 		
-		//init
-		for(int i=0; i<token_arr.length;i++)
-			token_arr[i]=0;
-		
-		// style - algorithm
-		for(int i = 0; i<token_arr.length; i++)
+		// initialize
+		for(int i=0;i<token_arr.length;i++)
 		{
-			if(md_data.charAt(i) == '*' && token_arr[i] == 0)
+				token_arr[i] = 0;
+		}
+		
+		
+		for(int i=0;i<token_arr.length;i++)
+		{
+			int flag = 0;
+
+			try
 			{
-				token_arr[i] = 2;
-				try
+				// strong tag
+				if(md_data.charAt(i)=='*' && md_data.charAt(i+1)=='*' && token_arr[i] == 0 && i+1 < token_arr.length)
 				{
-					if(md_data.charAt(i+1) == '*')
-						token_arr[i+1] = 2;
-				}
-				catch(Exception e)
-				{
-					// String index error
-				}
-				for(int j = i+1; j<token_arr.length;j++)
-				{
-					if(md_data.charAt(j) == '*' && token_arr[j] == 0)
-					{
-						token_arr[j] = 22;
-						if(md_data.charAt(j+1) == '*')
+					flag = 1;
+					for(int j=i+2;j<token_arr.length;j++){
+						if(md_data.charAt(j)=='*' && md_data.charAt(j+1)=='*' && token_arr[j] == 0 && flag == 1){
+							token_arr[i] = 2;
+							token_arr[i+1] = 2;		
+							token_arr[j] = 22;
 							token_arr[j+1] = 22;
+							break;
+						}
+					}
+				}
+			} catch(Exception e)
+			{ 
+				// String index error
+			}
+			
+			// em tag
+			if(md_data.charAt(i) == '*' && token_arr[i] == 0 && i < token_arr.length)
+			{
+				flag = 1;
+				for(int j=i+1; j < token_arr.length; j++)
+				{
+					if(md_data.charAt(j)=='*' && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+					{
+						token_arr[i] = 2;
+						token_arr[j] = 22;
 						break;
 					}
 				}
+			}	
+			
+			// link token
+			if(md_data.charAt(i) == '[' && token_arr[i] == 0 && i < token_arr.length)
+			{
+				for(int j=i+1; j<token_arr.length; j++)
+				{
+					if(md_data.charAt(j) == ']' && token_arr[j] == 0 && j < token_arr.length)
+					{
+						for(int k = j+1; k < token_arr.length; k++)
+						{
+							if(md_data.charAt(k) == '(' && token_arr[k] == 0 && k < token_arr.length)
+							{
+								for(int l = k+1; l < token_arr.length; l++)
+								{
+									if(md_data.charAt(l) == ')' && token_arr[l] == 0 && l < token_arr.length)
+									{
+										token_arr[i] = 4;
+										token_arr[j] = 44;
+										token_arr[k] = 444;
+										token_arr[l] = 4444;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
+				
+			// image token
+			if(md_data.charAt(i) == '!' && token_arr[i] == 0 && i < token_arr.length)
+			{
+				for(int j=i+1; j<token_arr.length; j++)
+				{
+					if(md_data.charAt(j) == '[' && token_arr[j] == 0 && j < token_arr.length)
+					{
+						for(int k = j+1; k < token_arr.length; k++)
+						{
+							if(md_data.charAt(k) == ']' && token_arr[k] == 0 && k < token_arr.length)
+							{
+								for(int l = k+1; l < token_arr.length; l++)
+								{
+									if(md_data.charAt(l) == '(' && token_arr[l] == 0 && l < token_arr.length)
+									{
+										for(int m = l+1; m < token_arr.length; m++)
+										{
+											if(md_data.charAt(m) == ')' && token_arr[m] == 0 && l < token_arr.length)
+											{
+												token_arr[i] = 5;
+												token_arr[j] = 55;
+												token_arr[k] = 555;
+												token_arr[l] = 5555;
+												token_arr[m] = 55555;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+							
 		}
 		
 		for(int i = 0; i<md_data.length(); i++)
@@ -84,6 +163,33 @@ public class Node implements MDElement
 				StyleText stE = new StyleText();
 				this.token_list.add(stE.createEnd(data));
 				break;
+			case 4:
+				Link linkFirst = new Link();
+				this.token_list.add(linkFirst.createFirst(data));
+			case 44:
+				Link linkSec = new Link();
+				this.token_list.add(linkSec.createSecond(data));
+			case 444:
+				Link linkThird = new Link();
+				this.token_list.add(linkThird.createThird(data));
+			case 4444:
+				Link linkLast = new Link();
+				this.token_list.add(linkLast.createLast(data));
+			case 5:
+				Image imgFirst = new Image();
+				this.token_list.add(imgFirst.createFirst(data));
+			case 55:
+				Image imgSec = new Image();
+				this.token_list.add(imgSec.createSecond(data));
+			case 555:
+				Image imgThird = new Image();
+				this.token_list.add(imgThird.createThird(data));
+			case 5555:
+				Image imgFour = new Image();
+				this.token_list.add(imgFour.createFourth(data));
+			case 55555:
+				Image imgLast = new Image();
+				this.token_list.add(imgLast.createLast(data));
 			default :
 				break;
 			}	
