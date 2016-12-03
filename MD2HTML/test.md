@@ -1,21 +1,12 @@
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-c
-
-dddddddddddddddddddd
-ee ffff *gggg *
 
 123*45*678**9999**999**a
 =========================
-bb
-asdb
 
-aaaaaaaaaaaaaaaaaaaa
-bbbbbbbbbbbbbbbbbbb
+* abc
+* abd
+aa
 
-ccccccccccc
+1. abd
+2. ff
 
-ddddddddddd
-eeeeeeeeeeeee
-*  *
-c
+a

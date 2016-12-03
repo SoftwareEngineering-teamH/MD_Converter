@@ -9,6 +9,7 @@ public class Node implements MDElement
 	
 	//attribute
 	String md_data = "";
+	String[] md_data_arr;
 	String html_data = "";
 	int node_type = 0;
 	
@@ -19,6 +20,12 @@ public class Node implements MDElement
 	public Node create(String data)
 	{
 		this.md_data = data;
+		
+		return this;
+	}
+	public Node create(String[] data)
+	{
+		this.md_data_arr = data;
 		
 		return this;
 	}

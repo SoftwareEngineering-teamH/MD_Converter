@@ -41,12 +41,7 @@ public class Document implements MDElement
 		{//TEXT
 			type_num = 0;
 		}
-		else if(buffer1.startsWith("* ") || buffer1.startsWith("+ ") || buffer1.startsWith("- "))
-		{
-			// if sentence starts with asterisk(*) and one space bar, it is Item List.
-			// +, - 추가함
-			type_num = ItemList;
-		}
+		
 		else if(buffer1.startsWith(">"))
 		{
 			type_num = QuotedBlock;
@@ -67,6 +62,18 @@ public class Document implements MDElement
 			type_num = TEXT;
 		}
 		
+		return type_num;
+	}
+	public int check(String[] buffer){
+		int type_num = 0;
+		
+		if(buffer[0].startsWith("* ") || buffer[0].startsWith("+ ") || buffer[0].startsWith("- ")|| buffer[0].startsWith("1. "))
+		{
+			// if sentence starts with asterisk(*) and one space bar, it is Item List.
+			// +, - 추가함
+			//숫자. 인 경우 처리해야함
+			type_num = ItemList;
+		}
 		return type_num;
 	}
 
@@ -95,9 +102,20 @@ public class Document implements MDElement
 			return tt.create(data);
 		}
 	}
+
+	public Node setNode(int type, String[] data)
+	{
+		switch(type)
+		{
+		
+		case 4 :
+			ItemList il = new ItemList();
+			return il.create(data);
+		
+		}
+		return null;
+	}
 }
-
-
 
 
 
