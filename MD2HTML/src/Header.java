@@ -37,7 +37,6 @@ public class Header extends Node implements MDElement
 			this.md_data = this.md_data.substring(7,md_data.length());
 			this.node_type = 111111;
 		}
-	
 		return this;
 	}
 
