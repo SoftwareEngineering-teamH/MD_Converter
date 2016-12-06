@@ -210,7 +210,7 @@ public class main
 		{
 			System.out.println("[Command error]: No command was inserted");
 		}
-	     
+		
 		// Document Object make.
 		Document doc = new Document();
 		

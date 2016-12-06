@@ -69,9 +69,25 @@ public class PlainVisitor implements MDElementVisitor
 				//Escape!
 				if(node.token_list.get(i).token_type == 3)
 				{
+					content = content.concat(node.token_list.get(i+1).data);
+					i++;
+				}else if(node.token_list.get(i).token_type == 33)
+				{
+					content = content.concat("&lt;");
+					
+				}else if(node.token_list.get(i).token_type == 333)
+				{
+					content = content.concat("&amp;");
 					
 				}
-				
+				//code block Escape
+				else if(node.token_list.get(i).token_type == 7){
+					content = content.concat("&lt;");
+				}else if(node.token_list.get(i).token_type == 77){
+					content = content.concat("&rt;");
+				}else if(node.token_list.get(i).token_type == 777){
+					content = content.concat("&amp;");
+				}
 			}
 			//link!
 			if(node.token_list.get(i).token_type == 4)
@@ -95,6 +111,7 @@ public class PlainVisitor implements MDElementVisitor
 				String a = " ";
 				if(link.contains(a) == true)
 				{
+					
 					String s[] = link.split(" ");
 					String str = "<a href=\"" + s[0] + "\" title=" + s[1] + ">" + tmp_id + "</a>";
 					content=content.concat(str);

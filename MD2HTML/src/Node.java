@@ -38,11 +38,11 @@ public class Node implements MDElement
 		return this;
 	}
 
-	public void setToken()
+	public void setToken(int node_type)
 	{	
 		int length = md_data.length();
 		int[] token_arr = new int[length];
-		
+		char[] escape = {'\\', '\'', '*','_','{','}','[',']','(',')','#','.','!'};
 		// initialize
 		for(int i=0;i<token_arr.length;i++)
 		{
@@ -69,18 +69,44 @@ public class Node implements MDElement
 						}
 					}
 				}
+				else if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
+				{
+					flag = 1;
+					for(int j=i+2;j<token_arr.length;j++){
+						if(md_data.charAt(j)=='_' && md_data.charAt(j+1)=='_' && token_arr[j] == 0 && flag == 1){
+							token_arr[i] = 2;
+							token_arr[i+1] = 2;		
+							token_arr[j] = 22;
+							token_arr[j+1] = 22;
+							break;
+						}
+					}
+				}
 			} catch(Exception e)
 			{ 
 				// String index error
 			}
 			
 			// em tag
-			if(md_data.charAt(i) == '*' && token_arr[i] == 0 && i < token_arr.length)
+			if(md_data.charAt(i) == '*'  && token_arr[i] == 0 && i < token_arr.length)
 			{
 				flag = 1;
 				for(int j=i+1; j < token_arr.length; j++)
 				{
-					if(md_data.charAt(j)=='*' && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+					if(md_data.charAt(j)=='*'  && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+					{
+						token_arr[i] = 2;
+						token_arr[j] = 22;
+						break;
+					}
+				}
+			}	
+			else if( md_data.charAt(i) == '_' && token_arr[i] == 0 && i < token_arr.length)
+			{
+				flag = 1;
+				for(int j=i+1; j < token_arr.length; j++)
+				{
+					if( md_data.charAt(i) == '_' && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
 					{
 						token_arr[i] = 2;
 						token_arr[j] = 22;
@@ -149,7 +175,103 @@ public class Node implements MDElement
 					}
 				}
 			}
+			try
+			{
+				//escape for '<'
+				if(md_data.charAt(i) == '<' && token_arr[i] == 0 && i < token_arr.length)
+				{
 
+					if(md_data.charAt(i-1) != ' ' && md_data.charAt(i+1) != ' ' &&i-1>=0 && i+1 < token_arr.length)
+						token_arr[i] = 0;
+					else token_arr[i] = 33;
+					
+				} //case for '<' --> just keep going
+			}	
+			catch(Exception e){
+				
+			}
+				
+			try
+			{
+				//escape for '&'
+				if(md_data.charAt(i) == '&' && token_arr[i] == 0 && i< token_arr.length)
+				{
+					int k  = 0;
+					//왼쪽에 스페이스바, 오른쪽에 문자가 있을때
+					if(md_data.charAt(i-1) == ' ' &&i-1>=0)
+					{
+						//왼쪽에 스페이스바, 오른쪽도 스페이스바일 떄
+						if( md_data.charAt(i+1) == ' ' && i+1< token_arr.length)
+							token_arr[i] = 333;
+						else{
+							//왼쪽에 스페이스바 오른쪽에 문자가 있을때 &abc; 인경우
+							for(int j=i+1; j<token_arr.length; j++)
+							{
+								
+								if(md_data.charAt(j) == ';' && token_arr[j] == 0 && j < token_arr.length)
+								{
+									k = j;
+									// ; 가 있는경우 k!=0
+									break;
+								}
+								k = 0;
+							}
+							if(k!=0){
+								for(int m =i+1; m==k; m++)
+								{
+									//;가 있는경우 안에 스페이스바가있는지 체크
+									if(md_data.charAt(m) == ' ')
+									{
+										break;
+									}
+									token_arr[i] = 0;
+									//&와 ; 사이에  ' '가 없어서 escape안하니까 0을 반환
+								}
+							}else token_arr[i] = 333;
+										
+						}
+					}else{
+						token_arr[i] = 333;
+					}
+				}
+			}	
+			catch(Exception e){
+				
+			}
+			//escape for '\'
+			try
+			{
+				if(md_data.charAt(i) == '\\' && token_arr[i] == 0 && i+1 < token_arr.length)
+				{
+					for(int j=0; j<escape.length;j++){
+						if(md_data.charAt(i+1) == escape[j]){
+							token_arr[i] = 3;
+							token_arr[i+1] = 3;
+						}	
+					}
+					
+				}
+			}	
+			catch(Exception e){
+				
+			}
+			//if code block
+			try
+			{
+				if(node_type == 2){
+					if(md_data.charAt(i) == '<' && token_arr[i] == 0 && i < token_arr.length)
+					{
+						token_arr[i] = 7;	
+					}else if(md_data.charAt(i) == '>' && token_arr[i] == 0 && i < token_arr.length){
+						token_arr[i] = 77;
+					}else if(md_data.charAt(i) == '&' && token_arr[i] == 0 && i < token_arr.length){
+						token_arr[i] = 777;
+					}
+				}
+			}	
+			catch(Exception e){
+				
+			}
 							
 		}
 		
@@ -169,6 +291,18 @@ public class Node implements MDElement
 			case 22 :
 				StyleText stE = new StyleText();
 				this.token_list.add(stE.createEnd(data));
+				break;
+			case 3 :
+				Escape backs = new Escape();
+				this.token_list.add(backs.createbacks(data));
+				break;
+			case 33 :
+				Escape lt = new Escape();
+				this.token_list.add(lt.createlt(data));
+				break;
+			case 333 :
+				Escape amp = new Escape();
+				this.token_list.add(amp.createamp(data));
 				break;
 			case 4:
 				Link linkFirst = new Link();
@@ -201,6 +335,18 @@ public class Node implements MDElement
 			case 5555:
 				Image imgLast = new Image();
 				this.token_list.add(imgLast.createLast(data));
+				break;
+			case 7:
+				CodeBlockToken clt = new CodeBlockToken();
+				this.token_list.add(clt.createlt(data));
+				break;
+			case 77:
+				CodeBlockToken crt = new CodeBlockToken();
+				this.token_list.add(crt.creatert(data));
+				break;
+			case 777:
+				CodeBlockToken camp = new CodeBlockToken();
+				this.token_list.add(camp.createamp(data));
 				break;
 			default :
 				break;
