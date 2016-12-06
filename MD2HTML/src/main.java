@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-import org.w3c.tidy.Tidy;
+//import org.w3c.tidy.Tidy;
 
 public class main 
 {
@@ -17,14 +17,14 @@ public class main
 			}
 			else if(args[0].equals("-help"))
 	        {
-				System.out.println("\n\t◈ Help option"); 
+				System.out.println("\n\t Help option"); 
 				System.out.println("\n\t=========================================================================================================="); 
-				System.out.println("\t※Input format: <Command_type> <operation_type> <file_name>.....<file_name>\n"); 
-				System.out.println("\t\t▶ <Command_type>\texit : You can close the program."
+				System.out.println("\t nput format: <Command_type> <operation_type> <file_name>.....<file_name>\n"); 
+				System.out.println("\t\t <Command_type>\texit : You can close the program."
 						+ "\n\t\t\t\t\tread : You can insert a file to be converted(must be \".md\" file)."
 						+ "\n\t\t\t\t\t-help : You can use help option.\n"); 
-				System.out.println("\t\t▶ <operation_type>: There are three type of operating option [-slide][-fancy][-plain].\n"); 
-				System.out.println("\t\t▶ <file_name>: File format is mandatory to be a \".md\".\n"
+				System.out.println("\t\t  <operation_type>: There are three type of operating option [-slide][-fancy][-plain].\n"); 
+				System.out.println("\t\t  <file_name>: File format is mandatory to be a \".md\".\n"
 						+ "\t\t\t\tYou can insert multiple files.\n"); 
 				System.out.println("\t=========================================================================================================="); 
 	        }
@@ -57,7 +57,7 @@ public class main
 	                              
 									type += "slide";
 	                              
-									System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_slide") +".html"+">★\n\n"); 
+									System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_slide") +".html"+">\n\n"); 
 								}
 							}
 						}
@@ -73,7 +73,7 @@ public class main
 	            }
 	            else if(args[1].equals("-fancy"))
 	            {
-	            	System.out.println("\n◎ "+(args[2])+" read was executed.\n");
+	            	System.out.println("\n  "+(args[2])+" read was executed.\n");
 	            	try
 	            	{
 	            		File file = new File(args[2]);
@@ -99,7 +99,7 @@ public class main
 	            				}
 	            				type += "fancy";
 	                                
-	            				System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_fancy") +".html"+">★\n\n"); 
+	            				System.out.println("\n  [Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_fancy") +".html"+">\n\n"); 
 	            			}
 	            		}
 	               }
@@ -115,7 +115,7 @@ public class main
 	            }
 	            else if(args[1].equals("-plain"))
 	            {
-	            	System.out.println("\n◎ "+(args[2])+" read was executed.\n");
+	            	System.out.println("\n  "+(args[2])+" read was executed.\n");
 	            	try 
 	            	{
 	            		File file = new File(args[2]);
@@ -142,7 +142,7 @@ public class main
 	                        		}
 	                        		type += "plain";
 	                               
-	                        		System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">★\n\n");
+	                        		System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">\n\n");
 	                           }
 	                        }
 	                     }
@@ -185,7 +185,7 @@ public class main
 	                        		}
 	                        		type += "plain";
 	                               
-	                        		System.out.println("\n ★[Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">★\n\n");
+	                        		System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+args[2].replace(".md","_plain") +".html"+">\n\n");
 	                           }
 	                        }
 	                     }
