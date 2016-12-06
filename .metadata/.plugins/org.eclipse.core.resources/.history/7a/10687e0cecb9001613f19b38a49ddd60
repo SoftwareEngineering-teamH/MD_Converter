@@ -19,7 +19,6 @@ public class MDParser
 		// file is divided into string array by one sentence.
 		String[] str_arr = doc.md_data.split("\n");	
 		int str_arr_idx = 0;
-		boolean last_bf_flag = false;
 
 		//for detect header or text
 		doc.buffer1 = str_arr[str_arr_idx];
@@ -29,29 +28,27 @@ public class MDParser
 		while(str_arr_idx < str_arr.length)
 		{	
 			doc.buffer2 = str_arr[str_arr_idx];
-			
 			//using buffer1 and buffer2, make to know what type is
 			node_type = doc.check(doc.buffer1, doc.buffer2);
 			
-			if(node_type == ItemList)
+			if(node_type == 4)
 			{	
 				doc.buffer1 = "<li>" + doc.buffer1.substring(2,doc.buffer1.length()) + "</li>";
 				
 				while(!doc.buffer2.equals(""))
 				{
-					if(doc.check(doc.buffer2, "") == Horizontal || doc.check(doc.buffer2, "") == 44)
-					{
-						last_bf_flag = true;
+					if(doc.check(doc.buffer2, "") == Horizontal || doc.check(doc.buffer2, doc.buffer2) == 44)
 						break;
-					}
 					
 					if(doc.buffer2.startsWith("* "))
 						doc.buffer2 = "<li>" + doc.buffer2.substring(2,doc.buffer2.length()) + "</li>";
 					else
 						doc.buffer2 += "<br>";
 					
-					doc.buffer1 += doc.buffer2;
+					//if(doc.check(doc.buffer2, doc.buffer2) == 44)
+						//break;
 					
+					doc.buffer1 += doc.buffer2;
 					str_arr_idx++;
 					
 					if(str_arr_idx == str_arr.length)
@@ -66,17 +63,16 @@ public class MDParser
 				
 				while(!doc.buffer2.equals(""))
 				{
-					if(doc.check(doc.buffer2, "") == Horizontal || doc.check(doc.buffer2, "") == ItemList)
-					{
-						last_bf_flag = true;
+					if(doc.check(doc.buffer2, "") == Horizontal || doc.check(doc.buffer2, doc.buffer2) == 4)
 						break;
-					}
 					
 					if(checkItem(doc.buffer2))
 						doc.buffer2 = "<li>" + doc.buffer2.substring(doc.buffer2.indexOf('.') + 2, doc.buffer2.length()) + "</li>";
 					else
 							doc.buffer2 += "<br>";
 					
+					//if(doc.check(doc.buffer2, doc.buffer2) == 4)
+						//break;
 					
 					doc.buffer1 += doc.buffer2;
 					str_arr_idx++;
@@ -85,17 +81,14 @@ public class MDParser
 					doc.buffer2 = str_arr[str_arr_idx];
 				}
 			}
-			else if(node_type == QuotedBlock)
+			else if(node_type == 3)
 			{	
 				doc.buffer1 += "<br>";
 				
 				while(!doc.buffer2.equals(""))
 				{
-					if(doc.check(doc.buffer2, "") == Horizontal || doc.check(doc.buffer2, "") == ItemList || doc.check(doc.buffer2, "") == 44)
-					{
-						last_bf_flag = true;
+					if(doc.check(doc.buffer2, "") == Horizontal || doc.check(doc.buffer2, doc.buffer2) == 4 || doc.check(doc.buffer2, doc.buffer2) == 44)
 						break;
-					}
 					
 					if(doc.buffer2.startsWith("> "))
 						doc.buffer2 = doc.buffer2.substring(2,doc.buffer2.length());
@@ -110,7 +103,8 @@ public class MDParser
 				}
 			}
 			
-			doc.node_list.add(doc.setNode(node_type, doc.buffer1));
+			if (node_type != 0)
+				doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 			
 			if(node_type == Header || node_type == 11)
 			{
@@ -126,17 +120,9 @@ public class MDParser
 			
 			if(str_arr_idx >= str_arr.length)
 			{
-				if(last_bf_flag)
-				{
-					node_type = doc.check(doc.buffer1, "");
+				node_type = doc.check(doc.buffer1, "");
+				if (node_type != 0)
 					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
-				}
-				else if(node_type == ItemList || node_type == 44 || node_type == Horizontal);
-				else
-				{
-					node_type = doc.check(doc.buffer1, "");
-					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
-				}
 			}
 		}
 		

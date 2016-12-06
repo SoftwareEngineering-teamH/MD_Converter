@@ -252,9 +252,7 @@ public class main
    		
 		//doc.html_data test 
 		System.out.println(doc.html_data);
-		
 		//end
-
 	}
 }
 

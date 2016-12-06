@@ -233,7 +233,7 @@ public class main
 			doc.accept(new FancyVisitor());
 			break;
 		}
-	    
+	     
 		// html error test
 		
 		/*
@@ -254,7 +254,6 @@ public class main
 		System.out.println(doc.html_data);
 		
 		//end
-
 	}
 }
 

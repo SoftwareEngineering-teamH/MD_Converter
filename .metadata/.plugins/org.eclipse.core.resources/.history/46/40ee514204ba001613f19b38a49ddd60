@@ -129,13 +129,14 @@ public class MDParser
 				if(last_bf_flag)
 				{
 					node_type = doc.check(doc.buffer1, "");
-					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
+					
 				}
 				else if(node_type == ItemList || node_type == 44 || node_type == Horizontal);
 				else
 				{
 					node_type = doc.check(doc.buffer1, "");
-					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
+					if (node_type != 0)
+						doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 				}
 			}
 		}

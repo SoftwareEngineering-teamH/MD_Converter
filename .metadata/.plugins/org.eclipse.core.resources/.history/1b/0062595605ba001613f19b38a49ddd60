@@ -49,13 +49,7 @@ public class Document implements MDElement
 		else if(buffer1.startsWith("# ") || buffer1.startsWith("## ") || buffer1.startsWith("### ") || buffer1.startsWith("#### ") || buffer1.startsWith("##### ") || buffer1.startsWith("###### "))
 			type_num = Header;
 		else if(buffer1.startsWith("--"))
-		{
-			String[] str_hor = buffer1.split("-");
-			if(str_hor.length == 0)
-				type_num = Horizontal;
-			else
-				type_num = TEXT;
-		}
+			type_num = Horizontal;
 		else if(buffer2.startsWith("==") || buffer2.startsWith("--"))
 		{
 			int isH = 3;

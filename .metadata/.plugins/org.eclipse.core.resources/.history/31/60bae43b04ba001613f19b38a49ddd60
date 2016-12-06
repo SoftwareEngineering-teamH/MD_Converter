@@ -29,7 +29,6 @@ public class MDParser
 		while(str_arr_idx < str_arr.length)
 		{	
 			doc.buffer2 = str_arr[str_arr_idx];
-			
 			//using buffer1 and buffer2, make to know what type is
 			node_type = doc.check(doc.buffer1, doc.buffer2);
 			
@@ -129,13 +128,14 @@ public class MDParser
 				if(last_bf_flag)
 				{
 					node_type = doc.check(doc.buffer1, "");
-					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
+					
 				}
 				else if(node_type == ItemList || node_type == 44 || node_type == Horizontal);
 				else
 				{
 					node_type = doc.check(doc.buffer1, "");
-					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
+					if (node_type != 0)
+						doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 				}
 			}
 		}
