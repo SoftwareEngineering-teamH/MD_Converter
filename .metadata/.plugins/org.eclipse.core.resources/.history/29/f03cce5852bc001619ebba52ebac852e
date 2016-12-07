@@ -364,16 +364,12 @@ public class Node implements MDElement
 		case 11:
 			return "<h2>";
 		case 111:
-			return "<h1>";
-		case 1111:
-			return "<h2>";
-		case 11111:
 			return "<h3>";
-		case 111111:
+		case 1111:
 			return "<h4>";
-		case 1111111:
+		case 11111:
 			return "<h5>";
-		case 11111111:
+		case 111111:
 			return "<h6>";
 		case CodeBlock:
 			return "<pre><code>";
