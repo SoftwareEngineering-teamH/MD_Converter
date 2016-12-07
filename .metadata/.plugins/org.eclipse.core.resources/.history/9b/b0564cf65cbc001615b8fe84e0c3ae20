@@ -19,7 +19,6 @@ public class Node implements MDElement
 	String md_data = "";
 	String[] md_data_arr;
 	String html_data = "";
-	int node_type = 0;
 	
 	ArrayList<Token> token_list = new ArrayList<Token>();
 	

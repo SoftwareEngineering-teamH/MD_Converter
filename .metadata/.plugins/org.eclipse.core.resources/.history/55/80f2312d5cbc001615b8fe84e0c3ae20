@@ -41,7 +41,7 @@ public class Document implements MDElement
 		{
 			type_num = QuotedBlock;
 		}
-		else if(buffer1.startsWith("    ") || buffer1.startsWith("\t"))
+		else if(buffer1.startsWith("	"))
 		{
 			// if sentence starts with tab(or 4 space), it is code block.
 			type_num = CodeBlock;

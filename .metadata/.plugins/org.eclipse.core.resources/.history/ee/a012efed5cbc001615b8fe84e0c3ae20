@@ -38,7 +38,7 @@ public class Node implements MDElement
 		return this;
 	}
 
-	public void setToken()
+	public void setToken(int node_type)
 	{	
 		int length = md_data.length();
 		int[] token_arr = new int[length];
@@ -258,7 +258,7 @@ public class Node implements MDElement
 			//if code block
 			try
 			{
-				if(this.node_type == 2){
+				if(node_type == 2){
 					if(md_data.charAt(i) == '<' && token_arr[i] == 0 && i < token_arr.length)
 					{
 						token_arr[i] = 7;	
