@@ -69,7 +69,20 @@ public class Node implements MDElement
 						}
 					}
 				}
-				else if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
+				/*else if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
+				{
+					flag = 1;
+					for(int j=i+2;j<token_arr.length;j++){
+						if(md_data.charAt(j)=='_' && md_data.charAt(j+1)=='_' && token_arr[j] == 0 && flag == 1){
+							token_arr[i] = 2;
+							token_arr[i+1] = 2;		
+							token_arr[j] = 22;
+							token_arr[j+1] = 22;
+							break;
+						}
+					}
+				}*/
+				if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
 				{
 					flag = 1;
 					for(int j=i+2;j<token_arr.length;j++){
@@ -87,34 +100,39 @@ public class Node implements MDElement
 				// String index error
 			}
 			
-			// em tag
-			if(md_data.charAt(i) == '*'  && token_arr[i] == 0 && i < token_arr.length)
-			{
-				flag = 1;
-				for(int j=i+1; j < token_arr.length; j++)
+			try{
+				// em tag
+				if(md_data.charAt(i) == '*'  && token_arr[i] == 0 && i < token_arr.length)
 				{
-					if(md_data.charAt(j)=='*'  && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+					flag = 1;
+					for(int j=i+1; j < token_arr.length; j++)
 					{
-						token_arr[i] = 2;
-						token_arr[j] = 22;
-						break;
+						if(md_data.charAt(j)=='*'  && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+						{
+							token_arr[i] = 2;
+							token_arr[j] = 22;
+							break;
+						}
+					}
+				}	
+				
+				if(md_data.charAt(i) == '_'  && token_arr[i] == 0 && i < token_arr.length)
+				{
+					flag = 1;
+					for(int j=i+1; j < token_arr.length; j++)
+					{
+						if(md_data.charAt(j)=='_'  && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+						{
+							token_arr[i] = 2;
+							token_arr[j] = 22;
+							break;
+						}
 					}
 				}
-			}	
-			else if( md_data.charAt(i) == '_' && token_arr[i] == 0 && i < token_arr.length)
+			} catch(Exception e)
 			{
-				flag = 1;
-				for(int j=i+1; j < token_arr.length; j++)
-				{
-					if( md_data.charAt(i) == '_' && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
-					{
-						token_arr[i] = 2;
-						token_arr[j] = 22;
-						break;
-					}
-				}
-			}	
-			
+				
+			}
 			// link token
 			if(md_data.charAt(i) == '[' && token_arr[i] == 0 && i < token_arr.length)
 			{
@@ -197,21 +215,21 @@ public class Node implements MDElement
 				if(md_data.charAt(i) == '&' && token_arr[i] == 0 && i< token_arr.length)
 				{
 					int k  = 0;
-					//¿ÞÂÊ¿¡ ½ºÆäÀÌ½º¹Ù, ¿À¸¥ÂÊ¿¡ ¹®ÀÚ°¡ ÀÖÀ»¶§
+					//ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					if(md_data.charAt(i-1) == ' ' &&i-1>=0)
 					{
-						//¿ÞÂÊ¿¡ ½ºÆäÀÌ½º¹Ù, ¿À¸¥ÂÊµµ ½ºÆäÀÌ½º¹ÙÀÏ ‹š
+						//ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if( md_data.charAt(i+1) == ' ' && i+1< token_arr.length)
 							token_arr[i] = 333;
 						else{
-							//¿ÞÂÊ¿¡ ½ºÆäÀÌ½º¹Ù ¿À¸¥ÂÊ¿¡ ¹®ÀÚ°¡ ÀÖÀ»¶§ &abc; ÀÎ°æ¿ì
+							//ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ &abc; ï¿½Î°ï¿½ï¿½
 							for(int j=i+1; j<token_arr.length; j++)
 							{
 								
 								if(md_data.charAt(j) == ';' && token_arr[j] == 0 && j < token_arr.length)
 								{
 									k = j;
-									// ; °¡ ÀÖ´Â°æ¿ì k!=0
+									// ; ï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½ k!=0
 									break;
 								}
 								k = 0;
@@ -219,13 +237,13 @@ public class Node implements MDElement
 							if(k!=0){
 								for(int m =i+1; m==k; m++)
 								{
-									//;°¡ ÀÖ´Â°æ¿ì ¾È¿¡ ½ºÆäÀÌ½º¹Ù°¡ÀÖ´ÂÁö Ã¼Å©
+									//;ï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Ù°ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ Ã¼Å©
 									if(md_data.charAt(m) == ' ')
 									{
 										break;
 									}
 									token_arr[i] = 0;
-									//&¿Í ; »çÀÌ¿¡  ' '°¡ ¾ø¾î¼­ escape¾ÈÇÏ´Ï±î 0À» ¹ÝÈ¯
+									//&ï¿½ï¿½ ; ï¿½ï¿½ï¿½Ì¿ï¿½  ' 'ï¿½ï¿½ ï¿½ï¿½î¼­ escapeï¿½ï¿½ï¿½Ï´Ï±ï¿½ 0ï¿½ï¿½ ï¿½ï¿½È¯
 								}
 							}else token_arr[i] = 333;
 										
@@ -352,6 +370,7 @@ public class Node implements MDElement
 				break;
 			}	
 		}
+		
 	}
 	
 	

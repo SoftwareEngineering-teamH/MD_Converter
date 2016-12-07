@@ -88,6 +88,20 @@ public class Document implements MDElement
 		{
 			type_num = TEXT;
 		}
+	
+		return type_num;
+
+	}
+	public int check(String[] buffer){
+		int type_num = 0;
+		
+		if(buffer[0].startsWith("* ") || buffer[0].startsWith("+ ") || buffer[0].startsWith("- ")|| buffer[0].startsWith("1. "))
+		{
+			// if sentence starts with asterisk(*) and one space bar, it is Item List.
+			// +, - �߰���
+			//����. �� ��� ó���ؾ���
+			type_num = ItemList;
+		}
 		return type_num;
 	}
 
@@ -95,7 +109,7 @@ public class Document implements MDElement
 	{
 		switch(type)
 		{
-		case 1 : 
+		case Header : 
 			Header hd = new Header();
 			return hd.create(data, type);
 		case 11 : 

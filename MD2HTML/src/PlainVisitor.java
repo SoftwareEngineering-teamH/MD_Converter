@@ -33,60 +33,77 @@ public class PlainVisitor implements MDElementVisitor
 				plain.add(c);
 			}
 			else
-			{	//Plain!
-				if(node.token_list.get(i).token_type == 1)
-				{
-					char c = node.token_list.get(i).data.charAt(0);
-					plain.add(c);
+			{	
+				try{
+					//Plain!
+					if(node.token_list.get(i).token_type == 1)
+					{
+						char c = node.token_list.get(i).data.charAt(0);
+						plain.add(c);
+						
+					}
+					else if(node.token_list.get(i).token_type != 1)
+					{
+						String str = this.Charlist2String(plain);
+						content = content.concat(str);
+						plain = new ArrayList<Character>();
+					}
 					
-				}
-				else if(node.token_list.get(i).token_type != 1)
+					//Style!
+					if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type == 2)
+					{
+						content = content.concat("<strong>");
+						i++;
+					}
+					else if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type != 2)
+					{
+						content = content.concat("<em>");
+					}
+					else if(node.token_list.get(i).token_type == 22)
+					{
+						if(i+1 < node.token_list.size())
+						{
+							if(node.token_list.get(i+1).token_type == 22)
+							{
+								content = content.concat("</strong>");
+								i++;
+							}
+						}
+						else
+						{
+						content = content.concat("</em>");
+						}
+					}
+					/*else if(node.token_list.get(i).token_type == 22  && node.token_list.get(i+1).token_type == 22)
+					{
+						content = content.concat("</strong>");
+						i++;
+					}*/
+					//Escape!
+					if(node.token_list.get(i).token_type == 3)
+					{
+						content = content.concat(node.token_list.get(i+1).data);
+						i++;
+					}else if(node.token_list.get(i).token_type == 33)
+					{
+						content = content.concat("&lt;");
+						
+					}else if(node.token_list.get(i).token_type == 333)
+					{
+						content = content.concat("&amp;");
+						
+					}
+					//code block Escape
+					else if(node.token_list.get(i).token_type == 7){
+						content = content.concat("&lt;");
+					}else if(node.token_list.get(i).token_type == 77){
+						content = content.concat("&rt;");
+					}else if(node.token_list.get(i).token_type == 777){
+						content = content.concat("&amp;");
+					}
+				} catch(Exception e)
 				{
-					String str = this.Charlist2String(plain);
-					content = content.concat(str);
-					plain = new ArrayList<Character>();
-				}
-				//Style!
-				if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type == 2)
-				{
-					content = content.concat("<strong>");
-					i++;
-				}
-				else if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type != 2)
-				{
-					content = content.concat("<em>");
-				}
-				else if(node.token_list.get(i).token_type == 22 && node.token_list.get(i+1).token_type == 22 )
-				{
-					content = content.concat("</strong>");
-					i++;
-				}
-				else if(node.token_list.get(i).token_type == 22 && node.token_list.get(i+1).token_type != 22)
-				{
-					content = content.concat("</em>");
-				}
-				
-				//Escape!
-				if(node.token_list.get(i).token_type == 3)
-				{
-					content = content.concat(node.token_list.get(i+1).data);
-					i++;
-				}else if(node.token_list.get(i).token_type == 33)
-				{
-					content = content.concat("&lt;");
-					
-				}else if(node.token_list.get(i).token_type == 333)
-				{
-					content = content.concat("&amp;");
-					
-				}
-				//code block Escape
-				else if(node.token_list.get(i).token_type == 7){
-					content = content.concat("&lt;");
-				}else if(node.token_list.get(i).token_type == 77){
-					content = content.concat("&rt;");
-				}else if(node.token_list.get(i).token_type == 777){
-					content = content.concat("&amp;");
+					System.out.println("Exception");
 				}
 			}
 			//link!

@@ -91,7 +91,6 @@ public class main
 	            			else
 	            			{
 	            				Scanner sc = new Scanner(file);
-	                               
 	            				while(sc.hasNext()) 
 	            				{
 	            					data += sc.nextLine();
