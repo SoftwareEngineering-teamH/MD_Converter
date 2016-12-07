@@ -38,7 +38,7 @@ public class Node implements MDElement
 		return this;
 	}
 
-	public void setToken(int node_type)
+	public void setToken()
 	{	
 		int length = md_data.length();
 		int[] token_arr = new int[length];
@@ -243,7 +243,11 @@ public class Node implements MDElement
 										break;
 									}
 									token_arr[i] = 0;
+<<<<<<< HEAD
 									//&�� ; ���̿�  ' '�� �� escape���ϴϱ� 0�� ��ȯ
+=======
+									//&�� ; ���̿�  ' '�� ��� escape���ϴϱ� 0�� ��ȯ
+>>>>>>> a1207f91653d38a6b4a4a74c730d04cc0a4c1d38
 								}
 							}else token_arr[i] = 333;
 										
@@ -276,7 +280,7 @@ public class Node implements MDElement
 			//if code block
 			try
 			{
-				if(node_type == 2){
+				if(this.node_type == 2){
 					if(md_data.charAt(i) == '<' && token_arr[i] == 0 && i < token_arr.length)
 					{
 						token_arr[i] = 7;	
@@ -383,12 +387,16 @@ public class Node implements MDElement
 		case 11:
 			return "<h2>";
 		case 111:
-			return "<h3>";
+			return "<h1>";
 		case 1111:
-			return "<h4>";
+			return "<h2>";
 		case 11111:
-			return "<h5>";
+			return "<h3>";
 		case 111111:
+			return "<h4>";
+		case 1111111:
+			return "<h5>";
+		case 11111111:
 			return "<h6>";
 		case CodeBlock:
 			return "<pre><code>";
@@ -414,12 +422,16 @@ public class Node implements MDElement
 		case 11:
 			return "</h2>";
 		case 111:
-			return "</h3>";
+			return "</h1>";
 		case 1111:
-			return "</h4>";
+			return "</h2>";
 		case 11111:
-			return "</h5>";
+			return "</h3>";
 		case 111111:
+			return "</h4>";
+		case 1111111:
+			return "</h5>";
+		case 11111111:
 			return "</h6>";
 		case CodeBlock:
 			return "</code></pre>";

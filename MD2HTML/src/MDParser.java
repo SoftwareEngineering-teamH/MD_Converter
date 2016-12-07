@@ -112,7 +112,9 @@ public class MDParser
 			
 			doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 			
-			if(node_type == Header || node_type == 11)
+			int node_index = doc.node_list.size();
+			
+			if(doc.node_list.get(node_index-1).node_type == Header || doc.node_list.get(node_index-1).node_type == 11)
 			{
 				str_arr_idx++;
 				if(str_arr_idx >= str_arr.length)
@@ -131,7 +133,7 @@ public class MDParser
 					node_type = doc.check(doc.buffer1, "");
 					doc.node_list.add(doc.setNode(node_type, doc.buffer1));
 				}
-				else if(node_type == ItemList || node_type == 44 || node_type == Horizontal);
+				else if(node_type == ItemList || node_type == 44 || node_type == QuotedBlock);
 				else
 				{
 					node_type = doc.check(doc.buffer1, "");
@@ -151,7 +153,7 @@ public class MDParser
 		// setToken 
 		for(int i =0; i<doc.node_list.size();i++)
 		{
-			doc.node_list.get(i).setToken(node_type);
+			doc.node_list.get(i).setToken();
 		}
 	}
 	
