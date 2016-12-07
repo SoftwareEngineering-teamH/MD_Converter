@@ -195,21 +195,7 @@ public class Node implements MDElement
 					}
 				}
 			}
-			try
-			{
-				//escape for '<'
-				if(md_data.charAt(i) == '<' && token_arr[i] == 0 && i < token_arr.length)
-				{
-
-					if(md_data.charAt(i-1) != ' ' && md_data.charAt(i+1) != ' ' &&i-1>=0 && i+1 < token_arr.length)
-						token_arr[i] = 0;
-					else token_arr[i] = 33;
-					
-				} //case for '<' --> just keep going
-			}	
-			catch(Exception e){
-				
-			}
+			
 				
 			try
 			{
@@ -217,21 +203,21 @@ public class Node implements MDElement
 				if(md_data.charAt(i) == '&' && token_arr[i] == 0 && i< token_arr.length)
 				{
 					int k  = 0;
-					//���ʿ� �����̽���, �����ʿ� ���ڰ� ������
+				
 					if(md_data.charAt(i-1) == ' ' &&i-1>=0)
 					{
-						//���ʿ� �����̽���, �����ʵ� �����̽����� ��
+						
 						if( md_data.charAt(i+1) == ' ' && i+1< token_arr.length)
 							token_arr[i] = 333;
 						else{
-							//���ʿ� �����̽��� �����ʿ� ���ڰ� ������ &abc; �ΰ��
+							
 							for(int j=i+1; j<token_arr.length; j++)
 							{
 								
 								if(md_data.charAt(j) == ';' && token_arr[j] == 0 && j < token_arr.length)
 								{
 									k = j;
-									// ; �� �ִ°�� k!=0
+									
 									break;
 								}
 								k = 0;
@@ -239,7 +225,6 @@ public class Node implements MDElement
 							if(k!=0){
 								for(int m =i+1; m==k; m++)
 								{
-									//;�� �ִ°�� �ȿ� �����̽��ٰ��ִ��� üũ
 									if(md_data.charAt(m) == ' ')
 									{
 										break;
