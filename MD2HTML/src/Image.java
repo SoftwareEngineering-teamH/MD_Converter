@@ -1,3 +1,5 @@
+package MD2HTML;
+
 
 public class Image extends Token implements MDElement
 {

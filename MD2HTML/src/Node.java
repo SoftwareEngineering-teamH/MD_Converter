@@ -1,3 +1,5 @@
+package MD2HTML;
+
 import java.util.ArrayList;
 
 public class Node implements MDElement
@@ -243,11 +245,7 @@ public class Node implements MDElement
 										break;
 									}
 									token_arr[i] = 0;
-<<<<<<< HEAD
-									//&�� ; ���̿�  ' '�� �� escape���ϴϱ� 0�� ��ȯ
-=======
-									//&�� ; ���̿�  ' '�� ��� escape���ϴϱ� 0�� ��ȯ
->>>>>>> a1207f91653d38a6b4a4a74c730d04cc0a4c1d38
+
 								}
 							}else token_arr[i] = 333;
 										

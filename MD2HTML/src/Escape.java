@@ -1,3 +1,5 @@
+package MD2HTML;
+
 
 public class Escape extends Token implements MDElement
 {

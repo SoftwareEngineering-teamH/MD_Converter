@@ -1,3 +1,5 @@
+package MD2HTML;
+
 
 public class PlainText extends Token implements MDElement
 {
