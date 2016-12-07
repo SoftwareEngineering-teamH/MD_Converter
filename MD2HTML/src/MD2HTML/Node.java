@@ -57,7 +57,7 @@ public class Node implements MDElement
 
 			try
 			{
-				// strong tag
+                
 				if(md_data.charAt(i)=='*' && md_data.charAt(i+1)=='*' && token_arr[i] == 0 && i+1 < token_arr.length)
 				{
 					flag = 1;
@@ -71,19 +71,7 @@ public class Node implements MDElement
 						}
 					}
 				}
-				/*else if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
-				{
-					flag = 1;
-					for(int j=i+2;j<token_arr.length;j++){
-						if(md_data.charAt(j)=='_' && md_data.charAt(j+1)=='_' && token_arr[j] == 0 && flag == 1){
-							token_arr[i] = 2;
-							token_arr[i+1] = 2;		
-							token_arr[j] = 22;
-							token_arr[j+1] = 22;
-							break;
-						}
-					}
-				}*/
+                
 				if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
 				{
 					flag = 1;

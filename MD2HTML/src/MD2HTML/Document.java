@@ -94,7 +94,6 @@ public class Document implements MDElement
 		return type_num;
 
 	}
-	
 
 	public Node setNode(int type, String data)
 	{
