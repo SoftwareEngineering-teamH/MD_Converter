@@ -1,0 +1,32 @@
+package MD2HTML;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class CodeBlockTokenTest
+{
+
+	@Test
+	public void testCreatelt() 
+	{
+		CodeBlockToken cb = new CodeBlockToken();
+		cb.data = "test";
+		cb.token_type = 7;
+
+		assertSame(cb,cb.createlt("test"));
+	}
+
+	@Test
+	public void testCreatert() 
+	{
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCreateamp()
+	{
+		fail("Not yet implemented");
+	}
+
+}
