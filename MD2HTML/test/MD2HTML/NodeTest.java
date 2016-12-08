@@ -14,13 +14,6 @@ public class NodeTest {
 	}
 
 	@Test
-	public void testCreateStringArray() {
-		Node test_node = new Node();
-		test_node.md_data_arr[4] = "abcd";
-		assertEquals(test_node.create("abcd"),test_node);
-	}
-
-	@Test
 	public void testSetToken() {
 		fail("Not yet implemented");
 	}

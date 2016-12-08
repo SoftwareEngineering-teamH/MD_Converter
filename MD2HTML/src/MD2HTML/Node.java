@@ -33,12 +33,6 @@ public class Node implements MDElement
 		
 		return this;
 	}
-	public Node create(String[] data)
-	{
-		this.md_data_arr = data;
-		
-		return this;
-	}
 
 	public void setToken()
 	{	
