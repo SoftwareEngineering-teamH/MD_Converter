@@ -1,10 +1,15 @@
-<project name ="MD2HTML" basedir=".">
+<project name ="MD2HTML" default="all" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
 	<description>
 		Ant test
 	</description>
 
+<!--jacoco-->
+<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+	<classpath path="lib/jacocoant.jar"/>
+</taskdef>
+
 <!--property setting-->
-<property name="name" value="ex"/>
+<property name="name" value="md2html"/>
 <property name="version" value="1.0"/>
 <property name="src.dir" value="./src"/>
 <property name="build.dir" value="./build"/>
@@ -20,13 +25,65 @@
 	
 <!--compile target-->
 <target name="compile">
- <mkdir dir="${build.dir}"/>
- <mkdir dir="${classes.dir}"/>
- <javac
-  srcdir="${src.dir}"
-  destdir="${classes.dir}">
- </javac>
+	<mkdir dir="${build.dir}"/>
+ 	<mkdir dir="${classes.dir}"/>
+ 	<javac  srcdir="${src.dir}" destdir="${classes.dir}">
+ 		<classpath path="lib/junit.jar" />
+		<classpath path="lib/hamcrest-core.jar" />
+ 	</javac>
+
+ 	<javac srcdir="test/MD2HTML" destdir="${classes.dir}">
+ 		<classpath path="lib/junit.jar" />
+		<classpath path="lib/hamcrest-core.jar" />
+ 	</javac>
+
+ 	 	<echo message="build finish"/>
 </target>
+
+
+	<target name="cov-test" depends ="compile">
+		<jacoco:coverage>
+			<junit showoutput="true" printsummary="on" enabletestlistenerevents="true" fork="true">
+				<classpath path="${classes.dir}/MD2HTML" />
+				<classpath path="lib/junit.jar" />
+				<classpath path="lib/hamcrest-core.jar" />
+
+				<formatter type="plain" usefile="false" />
+				
+				<batchtest>
+					<fileset dir = "${classes.dir}/MD2HTML" includes = "*Test*" />
+				</batchtest>
+
+			</junit>
+		</jacoco:coverage>
+
+		<echo message="cov-test finish"/>
+	</target>
+
+	<target name="cov-report" depends="cov-test">
+		<jacoco:report> 
+			<executiondata>
+				<file file="jacoco.exec" />
+			</executiondata>
+
+			<structure name="MD2HTML_test">
+				<group name="md2html">
+				<classfiles>
+					<fileset dir="${build.dir}/classes/MD2HTML">
+					</fileset>
+				</classfiles>
+				<sourcefiles>
+					<fileset dir="src/MD2HTML" />
+					<fileset dir="test/MD2HTML"/>
+				</sourcefiles>
+				</group>
+			</structure>
+
+			<html destdir="report" />
+		</jacoco:report>
+				<echo message="report finish"/>
+
+	</target>
 
 <!--jars target-->
 <target name="jars" depends="compile">
@@ -63,6 +120,6 @@
 </target>
 
 <!--all target-->
-<target name="all" depends="clean, dist"/>
+<target name="all" depends="clean, dist, cov-report"/>
 
 </project>

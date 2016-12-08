@@ -165,20 +165,16 @@ public class MDParser
 		if(index == -1)
 			return false;
 		String str_list = data.substring(0, index);
-		if(str_list != null)
+		try
 		{
-			try
-			{
-				Integer.parseInt(str_list);
-				return true;
-			}
-			catch (Exception e)
-			{
-				return false;
-			}
+			Integer.parseInt(str_list);
+			return true;
 		}
-		else
+		catch (Exception e)
+		{
 			return false;
+		}
+		
 	}
 	
 }

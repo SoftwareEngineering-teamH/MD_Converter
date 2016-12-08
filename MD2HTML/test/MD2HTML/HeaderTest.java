@@ -9,14 +9,17 @@ public class HeaderTest {
 	@Test
 	public void testCreateStringInt() {
 		Header test_Header_1 = new Header();
-		test_Header_1.md_data="# ";
-		test_Header_1.node_type = 111;
-		assertEquals(test_Header_1.create("abc"),test_Header_1);
+		Header test_Header_11 = new Header();
+		test_Header_1.create("#abc", 111);
+		assertEquals(test_Header_11.create("# abc",111),test_Header_1);
+
+		
 		
 		Header test_Header_2 = new Header();
-		test_Header_2.md_data="## ";
+		Header test_Header_22 = new Header();
+		test_Header_2.md_data="abc";
 		test_Header_2.node_type = 1111;
-		assertEquals(test_Header_2.create("abc"),test_Header_2);
+		assertEquals(test_Header_2.create("## abc").md_data,test_Header_2.md_data);
 		
 		Header test_Header_3 = new Header();
 		test_Header_3.md_data="### ";

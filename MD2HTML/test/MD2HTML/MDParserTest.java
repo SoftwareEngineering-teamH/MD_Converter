@@ -12,6 +12,7 @@ public class MDParserTest {
 		Document doc2 = new Document(); 
 		MDParser parser = new MDParser();
 		
+		
 		doc1.md_data="1";
 		parser.parsing("1",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
@@ -20,24 +21,24 @@ public class MDParserTest {
 		parser.parsing("* 123\n456\n* 78",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
 		
-		doc1.md_data="1. °¡\n³ª\n2. ´Ù\n\n* aa\n---------\n\n1. ¶ó\n* 123\n\n* 12";
-		parser.parsing("1. °¡\n³ª\n2. ´Ù\n\n* aa\n---------\n\n1. ¶ó\n* 123\n\n* 12",doc2);
+		doc1.md_data="1. ï¿½ï¿½\nï¿½ï¿½\n2. ï¿½ï¿½\n\n* aa\n---------\n\n1. ï¿½ï¿½\n* 123\n\n* 12";
+		parser.parsing("1. ï¿½ï¿½\nï¿½ï¿½\n2. ï¿½ï¿½\n\n* aa\n---------\n\n1. ï¿½ï¿½\n* 123\n\n* 12",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
 
-		doc1.md_data="> \n°¡³ª\n> \n> \n------\n>\n\n\n1. °¡";
-		parser.parsing("> \n°¡³ª\n> \n> \n------\n>\n\n\n1. °¡",doc2);
+		doc1.md_data="> \nï¿½ï¿½ï¿½ï¿½\n> \n> \n------\n>\n\n\n1. ï¿½ï¿½";
+		parser.parsing("> \nï¿½ï¿½ï¿½ï¿½\n> \n> \n------\n>\n\n\n1. ï¿½ï¿½",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
 		
-		doc1.md_data="> \n°¡³ª\n> \n> \n------\n>\n\n\n1. °¡";
-		parser.parsing("> \n°¡³ª\n> \n> \n------\n>\n\n\n1. °¡",doc2);
+		doc1.md_data="> \nï¿½ï¿½ï¿½ï¿½\n> \n> \n------\n>\n\n\n1. ï¿½ï¿½";
+		parser.parsing("> \nï¿½ï¿½ï¿½ï¿½\n> \n> \n------\n>\n\n\n1. ï¿½ï¿½",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
 		
-		doc1.md_data="1. °¡\n³ª´Ù\n2. ¶ó";
-		parser.parsing("1. °¡\n³ª´Ù\n2. ¶ó",doc2);
+		doc1.md_data="1. ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½\n2. ï¿½ï¿½";
+		parser.parsing("1. ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½\n2. ï¿½ï¿½",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
 		
-		doc1.md_data="> ¿µ\n--------\n\n> ÀÏ\nÀÌ\n> »ï";
-		parser.parsing("> ¿µ\n--------\n\n> ÀÏ\nÀÌ\n> »ï",doc2);
+		doc1.md_data="> ï¿½ï¿½\n--------\n\n> ï¿½ï¿½\nï¿½ï¿½\n> ï¿½ï¿½";
+		parser.parsing("> ï¿½ï¿½\n--------\n\n> ï¿½ï¿½\nï¿½ï¿½\n> ï¿½ï¿½",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
 		
 		doc1.md_data="111\n======";
@@ -47,6 +48,15 @@ public class MDParserTest {
 		doc1.md_data="111\n======\n11111";
 		parser.parsing("111\n======\n11111",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
+		
+		doc1.md_data="a. 1234\n1. jhgjhjh\nb. 2dge2";
+		parser.parsing("a. 1234\n1. jhgjhjh\nb. 2dge2",doc2);
+		assertEquals(doc1.md_data,doc2.md_data);
+		
+		doc1.md_data="1. 1234\n\n.\nb. 2dge2";
+		parser.parsing("1. 1234\n\n.\nb. 2dge2", doc2);
+		assertEquals(doc1.md_data,doc2.md_data);
+
 	}
 
 	@Test
@@ -55,9 +65,11 @@ public class MDParserTest {
 		Document doc2 = new Document(); 
 		MDParser parser = new MDParser();
 		
-		doc1.md_data="12°¡. ³ª´Ù\n.³ª";
-		parser.parsing("12°¡. ³ª´Ù\n.³ª",doc2);
+		doc1.md_data="12. abc\n";
+		parser.parsing("12. abc\n",doc2);
 		assertEquals(doc1.md_data,doc2.md_data);
+		
+	
 	}
 
 }
