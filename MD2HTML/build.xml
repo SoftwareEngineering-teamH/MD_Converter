@@ -1,57 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="MD2HTML" default="build" basedir=".">
-<description>jar Test!!!</description>
-	
-<property name="targetDir" value=".\lib"/>
-<property name="sourceDir" value="${basedir}\src"/>
+<project name ="MD2HTML" basedir=".">
+	<description>
+		Ant test
+	</description>
+
+<!--property setting-->
+<property name="name" value="ex"/>
+<property name="version" value="1.0"/>
+<property name="src.dir" value="./src"/>
+<property name="build.dir" value="./build"/>
+<property name="classes.dir" value="${build.dir}/classes"/>
+<property name="jar.file" value="${build.dir}/${name}.jar"/>
+<property name="dist.dir" value="dist"/>
+<property name="dist.file" value="${dist.dir}/${name}-${version}"/>
+
 
 <path id="classpath">
 	<fileset dir ="${basedir}" includes="jtidy-r938.jar"/>
 </path>
 	
-<target name="build" depends="copy, compile, clean, jar">
-	<echo message="default success"/>
+<!--compile target-->
+<target name="compile">
+ <mkdir dir="${build.dir}"/>
+ <mkdir dir="${classes.dir}"/>
+ <javac
+  srcdir="${src.dir}"
+  destdir="${classes.dir}">
+ </javac>
 </target>
-	
-	
-<target name="compile" depends="copy">
-	<javac srcdir="${sourceDir}" destdir = "${targetDir}" classpathref="classpath" includeantruntime="false" />
-	<echo message="file compile success"/>
-</target>
-	
-<target name="copy">
-	<mkdir dir="${targetDir}"/>
-	<echo message="make directory success"/>
-	
-	<copy todir="${targetDir}">
-		<fileset dir="${sourceDir}"/>
-	</copy>
-	<echo message="file copy success"/>
-</target>
-	
-<target name="jar" depends="copy, compile">
+
+<!--jars target-->
+<target name="jars" depends="compile">
 	<manifestclasspath property="jar.classpath" jarfile="${basedir}\jtidy-r938">
 		<classpath refid="classpath"/>
 	</manifestclasspath>
-	<jar destfile="${targetDir}/convert.jar"
-	     basedir="${targetDir}">
-            <manifest>
-                <attribute name = "Main-Class" value = "main"/>
+ <jar
+  jarfile="${jar.file}"
+  basedir="${classes.dir}">
+   <manifest>
+                <attribute name = "Main-Class" value = "MD2HTML.main"/>
                 <attribute name = "Class-Path" value = "${jar.classpath}"/>
             </manifest>
-    </jar>
-	<echo message="jar compress success"/>
-	<delete>
-   		<fileset dir="${targetDir}" includes="**/*.class"/>
-    </delete>
-	
+ </jar>
 </target>
-	
-<target name="clean" depends="copy, compile">
-	<delete>
-   		<fileset dir="${targetDir}" includes="**/*.java"/>
-    </delete>
-    <echo message="file delete success"/>
+
+<!--distrobution target-->
+<target name="dist" depends="jars">
+ <mkdir dir="${dist.dir}"/>
+ <zip
+  destfile="${dist.file}.zip"
+  basedir="${build.dir}"
+  includes="*.jar"
+ />
 </target>
-	
+
+<!--main target-->
+<target name="main" depends="jars"/>
+
+<!--clean target-->
+<target name="clean">
+ <delete dir="${build.dir}"/>
+ <delete dir="${dist.dir}"/>
+</target>
+
+<!--all target-->
+<target name="all" depends="clean, dist"/>
+
 </project>

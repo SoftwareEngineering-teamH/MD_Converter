@@ -1,3 +1,5 @@
+package MD2HTML;
+
 import java.util.ArrayList;
 
 public class PlainVisitor implements MDElementVisitor
@@ -24,10 +26,6 @@ public class PlainVisitor implements MDElementVisitor
 		// node start tag generate
 		content += node.setStartTag();
 		
-///////////////////test
-		//for(int i=0;i<node.token_list.size(); i++)
-		//	System.out.println(i + "th node token list : " + node.token_list.get(i).token_type);
-		
 		// token_list each convert!
 		for(int i=0;i<node.token_list.size(); i++)
 		{
@@ -37,25 +35,77 @@ public class PlainVisitor implements MDElementVisitor
 				plain.add(c);
 			}
 			else
-			{	//Plain!
-				if(node.token_list.get(i).token_type == 1)
-				{
-					char c = node.token_list.get(i).data.charAt(0);
-					plain.add(c);
-				}
-				else if(node.token_list.get(i).token_type != 1)
-				{
-					String str = this.Charlist2String(plain);
-					content = content.concat(str);
-					plain = new ArrayList<Character>();
-				}
-				//Style!
-				//if()
-				
-				//Escape!
-				if(node.token_list.get(i).token_type == 3)
-				{
+			{	
+				try{
+					//Plain!
+					if(node.token_list.get(i).token_type == 1)
+					{
+						char c = node.token_list.get(i).data.charAt(0);
+						plain.add(c);
+						
+					}
+					else if(node.token_list.get(i).token_type != 1)
+					{
+						String str = this.Charlist2String(plain);
+						content = content.concat(str);
+						plain = new ArrayList<Character>();
+					}
 					
+					//Style!
+					if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type == 2)
+					{
+						content = content.concat("<strong>");
+						i++;
+					}
+					else if(node.token_list.get(i).token_type == 2 && node.token_list.get(i+1).token_type != 2)
+					{
+						content = content.concat("<em>");
+					}
+					else if(node.token_list.get(i).token_type == 22)
+					{
+						if(i+1 < node.token_list.size())
+						{
+							if(node.token_list.get(i+1).token_type == 22)
+							{
+								content = content.concat("</strong>");
+								i++;
+							}
+						}
+						else
+						{
+						content = content.concat("</em>");
+						}
+					}
+					/*else if(node.token_list.get(i).token_type == 22  && node.token_list.get(i+1).token_type == 22)
+					{
+						content = content.concat("</strong>");
+						i++;
+					}*/
+					//Escape!
+					if(node.token_list.get(i).token_type == 3)
+					{
+						content = content.concat(node.token_list.get(i+1).data);
+						i++;
+					}else if(node.token_list.get(i).token_type == 33)
+					{
+						content = content.concat("&lt;");
+						
+					}else if(node.token_list.get(i).token_type == 333)
+					{
+						content = content.concat("&amp;");
+						
+					}
+					//code block Escape
+					else if(node.token_list.get(i).token_type == 7){
+						content = content.concat("&lt;");
+					}else if(node.token_list.get(i).token_type == 77){
+						content = content.concat("&rt;");
+					}else if(node.token_list.get(i).token_type == 777){
+						content = content.concat("&amp;");
+					}
+				} catch(Exception e)
+				{
+					System.out.println("Exception");
 				}
 			}
 			//link!
@@ -74,11 +124,21 @@ public class PlainVisitor implements MDElementVisitor
 			else if(node.token_list.get(i).token_type == 4444)
 			{
 				link_flag = false;
+				plain.remove(plain.size()-1);
 				String link = this.Charlist2String(plain);
 				plain = new ArrayList<Character>();
-				String s[] = link.split(" ");
-				String str = "<a herf=\"" + s[0] + "\" title =" + s[1] + ">" + tmp_id + "</a>";
-				content=content.concat(str);
+				String a = " ";
+				if(link.contains(a) == true)
+				{
+					
+					String s[] = link.split(" ");
+					String str = "<a href=\"" + s[0] + "\" title=" + s[1] + ">" + tmp_id + "</a>";
+					content=content.concat(str);
+				}else
+				{
+					String str = "<a href=\"" + link + "\">"+tmp_id + "</a>"; 
+					content=content.concat(str);
+				}
 			}
 			
 			//image!
@@ -98,6 +158,7 @@ public class PlainVisitor implements MDElementVisitor
 			else if(node.token_list.get(i).token_type == 5555)
 			{
 				img_flag = false;
+				plain.remove(plain.size()-1);
 				String img = this.Charlist2String(plain);
 				plain = new ArrayList<Character>();
 				String a = " ";
@@ -105,25 +166,20 @@ public class PlainVisitor implements MDElementVisitor
 				{
 					String s[] = img.split(" ");
 					image_path = s[0];
-					String str = "img src=\"" + image_path + "\" title=" + s[1] + "alt="+tmp_id + ">"; 
+					String str = "<img src=\"" + image_path + "\" title=" + s[1] + " alt="+tmp_id + ">"; 
 					content = content.concat(str);
 				}
 				else
 				{
-					String str = "<img src=\"" + img + "alt="+tmp_id + ">"; 
+					String str = "<img src=\"" + img + " alt="+tmp_id + ">"; 
 					content=content.concat(str);
 				}
 			}
 			
-			//html code!
-			if(node.token_list.get(i).token_type == 6)
-			{
-				
-			}
-			
-			
 		}
 		
+		String str = this.Charlist2String(plain);
+		content = content.concat(str);
 		// node finish tag generate
 		content += node.setEndTag();
 		content += "\n";

@@ -1,7 +1,17 @@
+package MD2HTML;
+
 import java.util.ArrayList;
 
 public class Node implements MDElement
 {
+	//Node type
+	static final private int Header = 1;
+	static final private int CodeBlock = 2;
+	static final private int QuotedBlock = 3;
+	static final private int ItemList = 4;
+	static final private int Horizontal = 5;
+	static final private int TEXT = 6;
+	
 	public void accept(MDElementVisitor visitor)
 	{
 		visitor.visitNode(this);
@@ -9,6 +19,7 @@ public class Node implements MDElement
 	
 	//attribute
 	String md_data = "";
+	String[] md_data_arr;
 	String html_data = "";
 	int node_type = 0;
 	
@@ -22,42 +33,240 @@ public class Node implements MDElement
 		
 		return this;
 	}
-	
+	public Node create(String[] data)
+	{
+		this.md_data_arr = data;
+		
+		return this;
+	}
+
 	public void setToken()
 	{	
 		int length = md_data.length();
 		int[] token_arr = new int[length];
-		
-		//init
-		for(int i=0; i<token_arr.length;i++)
-			token_arr[i]=0;
-		
-		// style - algorithm
-		for(int i = 0; i<token_arr.length; i++)
+		char[] escape = {'\\', '\'', '*','_','{','}','[',']','(',')','#','.','!'};
+		// initialize
+		for(int i=0;i<token_arr.length;i++)
 		{
-			if(md_data.charAt(i) == '*' && token_arr[i] == 0)
+				token_arr[i] = 0;
+		}
+		
+		for(int i=0;i<token_arr.length;i++)
+		{
+			int flag = 0;
+
+			try
 			{
-				token_arr[i] = 2;
-				try
+				// strong tag with '*'
+				if(md_data.charAt(i)=='*' && md_data.charAt(i+1)=='*' && token_arr[i] == 0 && i+1 < token_arr.length)
 				{
-					if(md_data.charAt(i+1) == '*')
-						token_arr[i+1] = 2;
-				}
-				catch(Exception e)
-				{
-					// String index error
-				}
-				for(int j = i+1; j<token_arr.length;j++)
-				{
-					if(md_data.charAt(j) == '*' && token_arr[j] == 0)
-					{
-						token_arr[j] = 22;
-						if(md_data.charAt(j+1) == '*')
+					flag = 1;
+					for(int j=i+2;j<token_arr.length;j++){
+						if(md_data.charAt(j)=='*' && md_data.charAt(j+1)=='*' && token_arr[j] == 0 && flag == 1){
+							token_arr[i] = 2;
+							token_arr[i+1] = 2;		
+							token_arr[j] = 22;
 							token_arr[j+1] = 22;
-						break;
+							break;
+						}
+					}
+				}
+				
+				// strong tag with '_'
+				if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
+				{
+					flag = 1;
+					for(int j=i+2;j<token_arr.length;j++){
+						if(md_data.charAt(j)=='_' && md_data.charAt(j+1)=='_' && token_arr[j] == 0 && flag == 1){
+							token_arr[i] = 2;
+							token_arr[i+1] = 2;		
+							token_arr[j] = 22;
+							token_arr[j+1] = 22;
+							break;
+						}
+					}
+				}
+			} catch(Exception e)
+			{ 
+				// String index error
+			}
+			
+			try{
+				// em tag
+				if(md_data.charAt(i) == '*'  && token_arr[i] == 0 && i < token_arr.length)
+				{
+					flag = 1;
+					for(int j=i+1; j < token_arr.length; j++)
+					{
+						if(md_data.charAt(j)=='*'  && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+						{
+							token_arr[i] = 2;
+							token_arr[j] = 22;
+							break;
+						}
+					}
+				}	
+				
+				if(md_data.charAt(i) == '_'  && token_arr[i] == 0 && i < token_arr.length)
+				{
+					flag = 1;
+					for(int j=i+1; j < token_arr.length; j++)
+					{
+						if(md_data.charAt(j)=='_'  && token_arr[j] == 0 && flag == 1 && j < token_arr.length)
+						{
+							token_arr[i] = 2;
+							token_arr[j] = 22;
+							break;
+						}
+					}
+				}
+			} catch(Exception e)
+			{
+				
+			}
+			// link token
+			if(md_data.charAt(i) == '[' && token_arr[i] == 0 && i < token_arr.length)
+			{
+				for(int j=i+1; j<token_arr.length; j++)
+				{
+					if(md_data.charAt(j) == ']' && token_arr[j] == 0 && j < token_arr.length)
+					{
+						for(int k = j+1; k < token_arr.length; k++)
+						{
+							if(md_data.charAt(k) == '(' && token_arr[k] == 0 && k < token_arr.length)
+							{
+								for(int l = k+1; l < token_arr.length; l++)
+								{
+									if(md_data.charAt(l) == ')' && token_arr[l] == 0 && l < token_arr.length)
+									{
+										token_arr[i] = 4;
+										token_arr[j] = 44;
+										token_arr[k] = 444;
+										token_arr[l] = 4444;
+									}
+								}
+							}
+						}
 					}
 				}
 			}
+				
+			// image token
+			if(md_data.charAt(i) == '!' && token_arr[i] == 0 && i < token_arr.length)
+			{
+				for(int j=i+1; j<token_arr.length; j++)
+				{
+					if(md_data.charAt(j) == '[' && token_arr[j] == 0 && j < token_arr.length)
+					{
+						for(int k = j+1; k < token_arr.length; k++)
+						{
+							if(md_data.charAt(k) == ']' && token_arr[k] == 0 && k < token_arr.length)
+							{
+								for(int l = k+1; l < token_arr.length; l++)
+								{
+									if(md_data.charAt(l) == '(' && token_arr[l] == 0 && l < token_arr.length)
+									{
+										for(int m = l+1; m < token_arr.length; m++)
+										{
+											if(md_data.charAt(m) == ')' && token_arr[m] == 0 && l < token_arr.length)
+											{
+												token_arr[i] = 5;
+												token_arr[j] = 5;
+												token_arr[k] = 55;
+												token_arr[l] = 555;
+												token_arr[m] = 5555;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+				
+			try
+			{
+				//escape for '&'
+				if(md_data.charAt(i) == '&' && token_arr[i] == 0 && i< token_arr.length)
+				{
+					int k  = 0;
+				
+					if(md_data.charAt(i-1) == ' ' &&i-1>=0)
+					{
+						
+						if( md_data.charAt(i+1) == ' ' && i+1< token_arr.length)
+							token_arr[i] = 333;
+						else{
+							
+							for(int j=i+1; j<token_arr.length; j++)
+							{
+								
+								if(md_data.charAt(j) == ';' && token_arr[j] == 0 && j < token_arr.length)
+								{
+									k = j;
+									
+									break;
+								}
+								k = 0;
+							}
+							if(k!=0){
+								for(int m =i+1; m==k; m++)
+								{
+									if(md_data.charAt(m) == ' ')
+									{
+										break;
+									}
+									token_arr[i] = 0;
+
+								}
+							}else token_arr[i] = 333;
+										
+						}
+					}else{
+						token_arr[i] = 333;
+					}
+				}
+			}	
+			catch(Exception e){
+				
+			}
+			//escape for '\'
+			try
+			{
+				if(md_data.charAt(i) == '\\' && token_arr[i] == 0 && i+1 < token_arr.length)
+				{
+					for(int j=0; j<escape.length;j++){
+						if(md_data.charAt(i+1) == escape[j]){
+							token_arr[i] = 3;
+							token_arr[i+1] = 3;
+						}	
+					}
+					
+				}
+			}	
+			catch(Exception e){
+				
+			}
+			//if code block
+			try
+			{
+				if(this.node_type == 2){
+					if(md_data.charAt(i) == '<' && token_arr[i] == 0 && i < token_arr.length)
+					{
+						token_arr[i] = 7;	
+					}else if(md_data.charAt(i) == '>' && token_arr[i] == 0 && i < token_arr.length){
+						token_arr[i] = 77;
+					}else if(md_data.charAt(i) == '&' && token_arr[i] == 0 && i < token_arr.length){
+						token_arr[i] = 777;
+					}
+				}
+			}	
+			catch(Exception e){
+				
+			}
+							
 		}
 		
 		for(int i = 0; i<md_data.length(); i++)
@@ -72,13 +281,72 @@ public class Node implements MDElement
 			case 2 :
 				StyleText st = new StyleText();
 				this.token_list.add(st.create(data));
+				break;
 			case 22 :
 				StyleText stE = new StyleText();
 				this.token_list.add(stE.createEnd(data));
+				break;
+			case 3 :
+				Escape backs = new Escape();
+				this.token_list.add(backs.createbacks(data));
+				break;
+			case 33 :
+				Escape lt = new Escape();
+				this.token_list.add(lt.createlt(data));
+				break;
+			case 333 :
+				Escape amp = new Escape();
+				this.token_list.add(amp.createamp(data));
+				break;
+			case 4:
+				Link linkFirst = new Link();
+				this.token_list.add(linkFirst.createFirst(data));
+				break;
+			case 44:
+				Link linkSec = new Link();
+				this.token_list.add(linkSec.createSecond(data));
+				break;
+			case 444:
+				Link linkThird = new Link();
+				this.token_list.add(linkThird.createThird(data));
+				break;
+			case 4444:
+				Link linkLast = new Link();
+				this.token_list.add(linkLast.createLast(data));
+				break;
+			case 5:
+				Image imgFirst = new Image();
+				this.token_list.add(imgFirst.createFirst(data));
+				break;
+			case 55:
+				Image imgSec = new Image();
+				this.token_list.add(imgSec.createSecond(data));
+				break;
+			case 555:
+				Image imgThird = new Image();
+				this.token_list.add(imgThird.createThird(data));
+				break;
+			case 5555:
+				Image imgLast = new Image();
+				this.token_list.add(imgLast.createLast(data));
+				break;
+			case 7:
+				CodeBlockToken clt = new CodeBlockToken();
+				this.token_list.add(clt.createlt(data));
+				break;
+			case 77:
+				CodeBlockToken crt = new CodeBlockToken();
+				this.token_list.add(crt.creatert(data));
+				break;
+			case 777:
+				CodeBlockToken camp = new CodeBlockToken();
+				this.token_list.add(camp.createamp(data));
+				break;
 			default :
 				break;
 			}	
 		}
+		
 	}
 	
 	
@@ -86,13 +354,34 @@ public class Node implements MDElement
 	{
 		switch(this.node_type)
 		{
-		case 1:
-			// if header_type =1 > #, 2 > ##
+		case Header:
 			return "<h1>";
-		case 2:
+		case 11:
+			return "<h2>";
+		case 111:
+			return "<h1>";
+		case 1111:
+			return "<h2>";
+		case 11111:
+			return "<h3>";
+		case 111111:
+			return "<h4>";
+		case 1111111:
+			return "<h5>";
+		case 11111111:
+			return "<h6>";
+		case CodeBlock:
 			return "<pre><code>";
+		case QuotedBlock:
+			return "<blockquote>";
+		case ItemList:
+			return "<ul>";
+		case 44:
+			return "<ol>";
+		case Horizontal :
+			return "<hr />";
 		default :
-			return "<br>";
+			return "";
 		}
 	}
 	
@@ -100,12 +389,34 @@ public class Node implements MDElement
 	{
 		switch(this.node_type)
 		{
-		case 1:
+		case Header:
 			return "</h1>";
-		case 2:
+		case 11:
+			return "</h2>";
+		case 111:
+			return "</h1>";
+		case 1111:
+			return "</h2>";
+		case 11111:
+			return "</h3>";
+		case 111111:
+			return "</h4>";
+		case 1111111:
+			return "</h5>";
+		case 11111111:
+			return "</h6>";
+		case CodeBlock:
 			return "</code></pre>";
+		case QuotedBlock:
+			return "</blockquote>";
+		case ItemList:
+			return "</ul>";
+		case 44:
+			return "</ol>";
+		case Horizontal:
+			return "";
 		default :
-			return "</br>";
+			return "<br>";
 		}
 	}
 }

@@ -1,9 +1,11 @@
+package MD2HTML;
+
 
 public class Token implements MDElement
 {
 	public void accept(MDElementVisitor visitor)
 	{
-		//visitor.visitToken(this);
+		
 	}
 	
 	//attribute
