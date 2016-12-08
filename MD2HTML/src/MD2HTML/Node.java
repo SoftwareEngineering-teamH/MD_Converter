@@ -57,7 +57,7 @@ public class Node implements MDElement
 
 			try
 			{
-				// strong tag with '*'
+                
 				if(md_data.charAt(i)=='*' && md_data.charAt(i+1)=='*' && token_arr[i] == 0 && i+1 < token_arr.length)
 				{
 					flag = 1;
@@ -71,8 +71,7 @@ public class Node implements MDElement
 						}
 					}
 				}
-				
-				// strong tag with '_'
+                
 				if(md_data.charAt(i)=='_' && md_data.charAt(i+1)=='_' && token_arr[i] == 0 && i+1 < token_arr.length)
 				{
 					flag = 1;

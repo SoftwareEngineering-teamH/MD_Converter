@@ -94,16 +94,6 @@ public class Document implements MDElement
 		return type_num;
 
 	}
-	public int check(String[] buffer){
-		int type_num = 0;
-		
-		if(buffer[0].startsWith("* ") || buffer[0].startsWith("+ ") || buffer[0].startsWith("- ")|| buffer[0].startsWith("1. "))
-		{
-			// if sentence starts with asterisk(*) and one space bar, it is Item List.
-			type_num = ItemList;
-		}
-		return type_num;
-	}
 
 	public Node setNode(int type, String data)
 	{
