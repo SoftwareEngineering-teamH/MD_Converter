@@ -3,7 +3,6 @@ package MD2HTML;
 
 public class QuotedBlock extends Node implements MDElement
 {
-	@Override
 	public Node create(String data)
 	{
 		this.md_data = data;
