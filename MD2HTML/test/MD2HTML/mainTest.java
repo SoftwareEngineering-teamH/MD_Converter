@@ -24,6 +24,12 @@ public class mainTest {
       args[1] = "-slide";
       args[2] = "test.md";
       Main.main(args);
+      
+      args[0] = "-read";
+      args[1] = "-slide";
+      args[2] = "a.md";
+      Main.main(args);
+
       //read_slide_txt
       args[0] = "-read";
       args[1] = "-slide";
@@ -88,54 +94,44 @@ public class mainTest {
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "abc *abc* **abc** _abc_ __abc__ *ab*";
       Main.main(args);
       
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "abc *abc* **abc** _abc_ __abc__ *ab***";
       Main.main(args);
       
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "\\\" \\* < a<b & ";
       Main.main(args);
       
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "    < > &amp;";
-      Main.main(args);
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "****** **\\[*";
       Main.main(args);
       
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "[id](http://hi.kr/ \"title\") dd";
       Main.main(args);
       
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "[id](http://hi.kr/)";
       Main.main(args);
       
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "![Alt g](path/ \"title\")";
       Main.main(args);
       
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.data1 = "![Alt g](path/)";
       Main.main(args);
       
    }
