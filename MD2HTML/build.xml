@@ -13,21 +13,25 @@
 <property name="version" value="1.0"/>
 <property name="src.dir" value="./src"/>
 <property name="build.dir" value="./build"/>
+<property name="test.dir" value="./test"/>
+<property name="report.dir" value="./report"/>
 <property name="classes.dir" value="${build.dir}/classes"/>
 <property name="jar.file" value="${build.dir}/${name}.jar"/>
 
 
 
 <path id="classpath">
-	<fileset dir ="lib" includes="jtidy-r938.jar"/>
+	<fileset dir ="lib" includes="*.jar"/>
 </path>
-	
+
 <!--compile target-->
 <target name="compile">
 	<mkdir dir="${build.dir}"/>
  	<mkdir dir="${classes.dir}"/>
+ 	<mkdir dir="${report.dir}"/>
  	<javac  srcdir="${src.dir}" destdir="${classes.dir}">
- 		<classpath path="lib/junit.jar" />
+ 		<classpath path="lib/jtidy-r938.jar"/>
+		<classpath path="lib/junit.jar" />
 		<classpath path="lib/hamcrest-core.jar" />
  	</javac>
 
@@ -35,58 +39,53 @@
  		<classpath path="lib/junit.jar" />
 		<classpath path="lib/hamcrest-core.jar" />
  	</javac>
-
- 	 	<echo message="build finish"/>
 </target>
 
+ <target name="test" depends="compile">
 
-	<target name="cov-test" depends ="compile">
-		<jacoco:coverage>
-			<junit showoutput="true" printsummary="on" enabletestlistenerevents="true" fork="true">
-				<classpath path="/lib" />
-				<classpath path="lib/junit.jar" />
-				<classpath path="lib/hamcrest-core.jar" />
+        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </taskdef>
 
-				<formatter type="plain" usefile="false" />
-				
-				<batchtest>
-					<fileset dir = "${classes.dir}/MD2HTML" includes = "*Test*" />
-				</batchtest>
+        <!-- Run your unit tests, adding the JaCoCo agent -->
+        <jacoco:coverage destfile="jacoco.exec">
+          <junit printsummary="yes" fork="true" dir="${basedir}" failureProperty="test.failed">
+            <classpath location="${classes.dir}" />
+            <classpath refid="classpath" />
+            <formatter type="plain" usefile="false" />
+            <batchtest  fork="true" >
+              <fileset dir="${test.dir}">
+                <include name="**/*Test.java" />
+              </fileset>
+            </batchtest>
+          </junit>
 
-			</junit>
-		</jacoco:coverage>
+        </jacoco:coverage>
 
-		<echo message="cov-test finish"/>
-	</target>
+        <jacoco:report>
+          <executiondata>
+              <file file="jacoco.exec"/>
+          </executiondata>
 
-	<target name="cov-report" depends="cov-test">
-		<jacoco:report> 
-			<executiondata>
-				<file file="jacoco.exec" />
-			</executiondata>
+          <structure name="jacoco-sample">
+              <classfiles>
+                  <fileset dir="${classes.dir}"/>
+              </classfiles>
+              <sourcefiles encoding="UTF-8">
+                  <fileset dir="${src.dir}"/>
+              </sourcefiles>
+          </structure>
+          <html destdir="${report.dir}"/>
+        </jacoco:report>
 
-			<structure name="MD2HTML_test">
-				<group name="md2html">
-				<classfiles>
-					<fileset dir="lib">
-					</fileset>
-				</classfiles>
-				<sourcefiles>
-					<fileset dir="src/MD2HTML" />
-					<fileset dir="test/MD2HTML"/>
-				</sourcefiles>
-				</group>
-			</structure>
+    </target>
 
-			<html destdir="report" />
-		</jacoco:report>
-				<echo message="report finish"/>
-
-	</target>
 
 <!--jars target-->
 <target name="jars" depends="compile">
-	<manifestclasspath property="jar.classpath" jarfile="${basedir}\jtidy-r938">
+	<manifestclasspath property="jar.classpath" jarfile="jtidy-r938.jar">
 		<classpath refid="classpath"/>
 	</manifestclasspath>
  <jar
@@ -107,10 +106,10 @@
 <!--clean target-->
 <target name="clean">
  <delete dir="${build.dir}"/>
- <delete dir="${dist.dir}"/>
+ <delete dir="${report.dir}"/>
 </target>
 
 <!--all target-->
-<target name="all" depends="clean, cov-report"/>
+<target name="all" depends="clean, test, jars"/>
 
 </project>
