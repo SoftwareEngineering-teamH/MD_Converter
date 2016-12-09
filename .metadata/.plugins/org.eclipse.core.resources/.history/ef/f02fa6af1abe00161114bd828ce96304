@@ -1,0 +1,30 @@
+package MD2HTML;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class PlainVisitorTest {
+
+	@Test
+	public void testVisitDocument() 
+	{
+		Document doc = new Document();
+		doc.node_list.add(doc.setNode(1,"123\n==="));
+		doc.node_list.add(doc.setNode(11,"123\n---"));
+		doc.node_list.add(doc.setNode(111,"# 123"));
+		
+		for(int i =0; i<doc.node_list.size();i++)
+		{
+			doc.node_list.get(i).setToken();
+		}
+		
+	}
+
+	@Test
+	public void testVisitNode() 
+	{
+
+	}
+
+}
