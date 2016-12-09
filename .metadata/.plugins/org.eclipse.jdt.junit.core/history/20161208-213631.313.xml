@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="ImageTest" project="MD2HTML" tests="4" started="4" failures="0" errors="0" ignored="0">
-  <testsuite name="MD2HTML.ImageTest" time="0.0">
-    <testcase name="testCreateSecond" classname="MD2HTML.ImageTest" time="0.0"/>
-    <testcase name="testCreateFirst" classname="MD2HTML.ImageTest" time="0.0"/>
-    <testcase name="testCreateThird" classname="MD2HTML.ImageTest" time="0.0"/>
-    <testcase name="testCreateLast" classname="MD2HTML.ImageTest" time="0.0"/>
-  </testsuite>
-</testrun>

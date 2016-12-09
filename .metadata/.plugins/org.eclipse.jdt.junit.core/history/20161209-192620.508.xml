@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="DocumentTest" project="MD2HTML" tests="4" started="4" failures="0" errors="0" ignored="0">
-  <testsuite name="MD2HTML.DocumentTest" time="0.001">
-    <testcase name="testCheckStringString" classname="MD2HTML.DocumentTest" time="0.0"/>
-    <testcase name="testCheckStringArray" classname="MD2HTML.DocumentTest" time="0.001"/>
-    <testcase name="testAccept" classname="MD2HTML.DocumentTest" time="0.0"/>
-    <testcase name="testSetNode" classname="MD2HTML.DocumentTest" time="0.0"/>
-  </testsuite>
-</testrun>

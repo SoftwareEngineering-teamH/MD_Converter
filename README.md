@@ -8,7 +8,9 @@ See [javac](https://www.cis.upenn.edu/~bcpierce/courses/629/jdkdocs/tooldocs/win
 ## Synopsis
 You can execute this program with several files. You should follow the instruction as below:
 ```
-$ java commandInput [-command] [-type option] [file1] [file2] ...
+$ ant
+```
+ant 하면, jar 파일이 만들어 지고, Jacoco테스트 결과가 report 폴더 아래에 index.html파일로 저장된다.
 ```
 If you do not insert any [-type option], inserting file lists after [-command] like below, the program would convert files to plain type automatically.
 ```

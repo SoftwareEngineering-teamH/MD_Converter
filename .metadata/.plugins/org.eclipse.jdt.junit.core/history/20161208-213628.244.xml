@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="HTMLTest" project="MD2HTML" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="MD2HTML.HTMLTest" time="0.0">
-    <testcase name="testCreate" classname="MD2HTML.HTMLTest" time="0.0"/>
-  </testsuite>
-</testrun>

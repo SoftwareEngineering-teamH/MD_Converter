@@ -12,12 +12,11 @@ public class NodeTest {
 	}
 
 	@Test
-	public void testCreateString() 
-	{
+	public void testCreateString() {
 		Node test_node1 = new Node();
 		Node test_node2 = new Node();
 		test_node1.md_data = "abc";
-		assertEquals(test_node1.md_data,test_node2.create("abc").md_data);
+		assertEquals(test_node1,test_node2.create("abc"));
 	}
 
 	@Test
