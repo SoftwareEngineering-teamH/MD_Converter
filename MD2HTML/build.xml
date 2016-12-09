@@ -15,8 +15,7 @@
 <property name="build.dir" value="./build"/>
 <property name="classes.dir" value="${build.dir}/classes"/>
 <property name="jar.file" value="${build.dir}/${name}.jar"/>
-<property name="dist.dir" value="dist"/>
-<property name="dist.file" value="${dist.dir}/${name}-${version}"/>
+
 
 
 <path id="classpath">
@@ -44,7 +43,7 @@
 	<target name="cov-test" depends ="compile">
 		<jacoco:coverage>
 			<junit showoutput="true" printsummary="on" enabletestlistenerevents="true" fork="true">
-				<classpath path="${classes.dir}/MD2HTML" />
+				<classpath path="/lib" />
 				<classpath path="lib/junit.jar" />
 				<classpath path="lib/hamcrest-core.jar" />
 
@@ -69,7 +68,7 @@
 			<structure name="MD2HTML_test">
 				<group name="md2html">
 				<classfiles>
-					<fileset dir="${build.dir}/classes/MD2HTML">
+					<fileset dir="lib">
 					</fileset>
 				</classfiles>
 				<sourcefiles>
@@ -100,15 +99,7 @@
  </jar>
 </target>
 
-<!--distrobution target-->
-<target name="dist" depends="jars">
- <mkdir dir="${dist.dir}"/>
- <zip
-  destfile="${dist.file}.zip"
-  basedir="${build.dir}"
-  includes="*.jar"
- />
-</target>
+
 
 <!--main target-->
 <target name="main" depends="jars"/>
@@ -120,6 +111,6 @@
 </target>
 
 <!--all target-->
-<target name="all" depends="clean, dist, cov-report"/>
+<target name="all" depends="clean, cov-report"/>
 
 </project>
