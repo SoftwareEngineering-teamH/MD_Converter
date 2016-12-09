@@ -245,7 +245,7 @@ public class main
    		if (tidy.getParseErrors() != 0 )
    			System.out.println("error exist");
    		else if (tidy.getParseErrors() == 0)
-   			System.out.println("***No error***");
+   			System.out.println("No error");
 		
 		
 		// Document Object.htmlData >> file output
