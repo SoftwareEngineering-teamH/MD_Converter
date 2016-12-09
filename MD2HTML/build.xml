@@ -1,116 +1,120 @@
-<project name ="MD2HTML" default="all" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
-	<description>
-		Ant test
-	</description>
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="UT coverage with Ant and JaCoCo running tests" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant" xmlns:jacoco="antlib:org.jacoco.ant">
 
-<!--jacoco-->
-<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-	<classpath path="lib/jacocoant.jar"/>
-</taskdef>
+    <!-- ========= Define the main properties of this project ========= -->
+    <property name="src.dir" value="src" />
+    <property name="test.dir" value="test" />
+    <property name="lib.junit.dir" value="lib" />
+    <property name="build.dir" value="target" />
+    <property name="classes.dir" value="${build.dir}/classes" />
+    <property name="reports.dir" value="${build.dir}/reports" />
+    <property name="reports.junit.xml.dir" value="${reports.dir}/junit" />
 
-<!--property setting-->
-<property name="name" value="md2html"/>
-<property name="version" value="1.0"/>
-<property name="src.dir" value="./src"/>
-<property name="build.dir" value="./build"/>
-<property name="classes.dir" value="${build.dir}/classes"/>
-<property name="jar.file" value="${build.dir}/${name}.jar"/>
+    <!-- Define the Sonar properties -->
 
+    <property name="sonar.jdbc.url" value="jdbc:mysql://localhost:3306/sonar332?useUnicode=true&amp;characterEncoding=utf8" />
+        <property name="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
 
+        <!-- the username and password of your database -->
+        <property name="sonar.jdbc.username" value="root" />
+        <property name="sonar.jdbc.password" value="password" />
 
-<path id="classpath">
-	<fileset dir ="${basedir}" includes="jtidy-r938.jar"/>
-</path>
-	
-<!--compile target-->
-<target name="compile">
-	<mkdir dir="${build.dir}"/>
- 	<mkdir dir="${classes.dir}"/>
- 	<javac  srcdir="${src.dir}" destdir="${classes.dir}">
- 		<classpath path="lib/junit.jar" />
-		<classpath path="lib/hamcrest-core.jar" />
- 	</javac>
+    <property name="sonar.projectKey" value="org.codehaus.sonar:example-ut-ant-jacoco-runTests" />
+    <property name="sonar.projectName" value="UT coverage with Ant and JaCoCo running tests" />
+    <property name="sonar.projectVersion" value="1.0" />
+    <property name="sonar.language" value="java" />
+    <property name="sonar.sources" value="${src.dir}" />
+    <property name="sonar.tests" value="${test.dir}" />
+    <property name="sonar.binaries" value="${classes.dir}" />
+    <property name="sonar.sourceEncoding" value="UTF-8" />
+    <property name="sonar.surefire.reportsPath" value="${reports.junit.xml.dir}" />
 
- 	<javac srcdir="test/MD2HTML" destdir="${classes.dir}">
- 		<classpath path="lib/junit.jar" />
-		<classpath path="lib/hamcrest-core.jar" />
- 	</javac>
+    <!-- The following properties are required to use JaCoCo: -->
+    <property name="sonar.dynamicAnalysis" value="reuseReports" />
+    <property name="sonar.java.coveragePlugin" value="jacoco" />
+    <property name="sonar.jacoco.reportPath" value="target/jacoco.exec" />
 
- 	 	<echo message="build finish"/>
-</target>
+    <!-- ========= Define "regular" targets: clean, compile, test, ... ========= -->
 
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+                <classpath path="lib/jacocoant.jar"/>
+        </taskdef>
 
-	<target name="cov-test" depends ="compile">
-		<jacoco:coverage>
-			<junit showoutput="true" printsummary="on" enabletestlistenerevents="true" fork="true">
-				<classpath path="/lib" />
-				<classpath path="lib/junit.jar" />
-				<classpath path="lib/hamcrest-core.jar" />
+    <target name="clean">
+        <delete dir=".sonar" />
+        <delete dir="${build.dir}" />
+        <delete dir="${reports.dir}" />
+    </target>
 
-				<formatter type="plain" usefile="false" />
-				
-				<batchtest>
-					<fileset dir = "${classes.dir}/MD2HTML" includes = "*Test*" />
-				</batchtest>
+    <target name="init">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${classes.dir}" />
+        <mkdir dir="${reports.dir}" />
+        <mkdir dir="${reports.junit.xml.dir}" />
+    </target>
 
-			</junit>
-		</jacoco:coverage>
-
-		<echo message="cov-test finish"/>
-	</target>
-
-	<target name="cov-report" depends="cov-test">
-		<jacoco:report> 
-			<executiondata>
-				<file file="jacoco.exec" />
-			</executiondata>
-
-			<structure name="MD2HTML_test">
-				<group name="md2html">
-				<classfiles>
-					<fileset dir="lib">
-					</fileset>
-				</classfiles>
-				<sourcefiles>
-					<fileset dir="src/MD2HTML" />
-					<fileset dir="test/MD2HTML"/>
-				</sourcefiles>
-				</group>
-			</structure>
-
-			<html destdir="report" />
-		</jacoco:report>
-				<echo message="report finish"/>
-
-	</target>
-
-<!--jars target-->
-<target name="jars" depends="compile">
-	<manifestclasspath property="jar.classpath" jarfile="${basedir}\jtidy-r938">
-		<classpath refid="classpath"/>
-	</manifestclasspath>
- <jar
-  jarfile="${jar.file}"
-  basedir="${classes.dir}">
-   <manifest>
-                <attribute name = "Main-Class" value = "MD2HTML.main"/>
-                <attribute name = "Class-Path" value = "${jar.classpath}"/>
-            </manifest>
- </jar>
-</target>
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"  />
+        <javac srcdir="${test.dir}" destdir="${classes.dir}" classpathref="classpath" />
+    </target>
 
 
+    <path id="classpath">
+        <fileset dir="${lib.junit.dir}" includes="*.jar"/>
+    </path>
 
-<!--main target-->
-<target name="main" depends="jars"/>
+    <target name="test" depends="compile">
 
-<!--clean target-->
-<target name="clean">
- <delete dir="${build.dir}"/>
- <delete dir="${dist.dir}"/>
-</target>
+        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </taskdef>
 
-<!--all target-->
-<target name="all" depends="clean, cov-report"/>
+        <!-- Import the JaCoCo Ant Task -->
+        <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+          <classpath path="lib/jacocoant.jar"/>
+        </taskdef>
+
+        <!-- Run your unit tests, adding the JaCoCo agent -->
+        <jacoco:coverage destfile="target/jacoco.exec">
+          <junit printsummary="yes" fork="true" dir="${basedir}" failureProperty="test.failed">
+            <classpath location="${classes.dir}" />
+            <classpath refid="classpath" />
+            <formatter type="xml" />
+            <batchtest  fork="true" todir="${reports.junit.xml.dir}">
+              <fileset dir="${test.dir}">
+                <include name="**/*Test.java" />
+              </fileset>
+            </batchtest>
+          </junit>
+
+        </jacoco:coverage>
+
+        <jacoco:report>
+          <executiondata>
+              <file file="target/jacoco.exec"/>
+          </executiondata>
+
+          <structure name="jacoco-sample">
+              <classfiles>
+                  <fileset dir="${classes.dir}"/>
+              </classfiles>
+              <sourcefiles encoding="UTF-8">
+                  <fileset dir="${src.dir}"/>
+              </sourcefiles>
+          </structure>
+          <html destdir="${build.dir}/coverage-report"/>
+        </jacoco:report>
+
+    </target>
+
+    <target name = "check" depends = "test">
+
+    </target>
+
+
+    <!-- ========= The main target "all" ========= -->
+    <target name="all" depends="clean,compile,test" />
 
 </project>
