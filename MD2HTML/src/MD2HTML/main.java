@@ -256,8 +256,6 @@ public class main
          doc.accept(new FancyVisitor());
          break;
       }
-      HeaderTest headertest = new HeaderTest();
-      headertest.testCreateStringInt();
        
       // html error test
       
