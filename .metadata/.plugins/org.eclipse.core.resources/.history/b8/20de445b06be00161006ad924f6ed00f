@@ -16,8 +16,8 @@ public class MDParserTest {
       parser.parsing("1",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
-      doc1.md_data="* 123\n456\n* 78 **ab ** *a *";
-      parser.parsing("* 123\n456\n* 78 **ab ** *a *",doc2);
+      doc1.md_data="* 123\n456\n* 78";
+      parser.parsing("* 123\n456\n* 78",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
       doc1.md_data="1. 가\n나\n2. 다\n\n* aa\n---------\n\n1. 라\n* 123\n\n* 12";
@@ -71,36 +71,12 @@ public class MDParserTest {
        doc1.md_data="![abc](bcd)\n";
        parser.parsing("![abc](bcd)\n", doc2);
        assertEquals(doc1.md_data,doc2.md_data);
-       doc1.md_data="![abc](bcd \"t\")\n";
-       parser.parsing("![abc](bcd \"t\")\n", doc2);
-       assertEquals(doc1.md_data,doc2.md_data);
        
        doc1.md_data="*abac* **abc**_abc_ __gjg__*\n";
        parser.parsing("*abac* **abc**_abc_ __gjg__*\n", doc2);
        assertEquals(doc1.md_data,doc2.md_data);
-       
-       doc1.md_data="[id](http://hi/ \"title\")\n";
-       parser.parsing("[id](http://hi/ \"title\")\n", doc2);
-       assertEquals(doc1.md_data,doc2.md_data);
-       
-       doc1.md_data="[id](http://hi/)\n";
-       parser.parsing("[id](http://hi/)\n", doc2);
-       assertEquals(doc1.md_data,doc2.md_data);
-     
-       doc1.md_data="& a; a& b; a&b; & && &&& a&b a& b a &b &a; &amp; &a m;";
-       parser.parsing("& a; a& b; a&b; & && &&& a&b a& b a &b &a; &amp; &a m;", doc2);
-       assertEquals(doc1.md_data,doc2.md_data);
-       
-       doc1.md_data="\\' \\{ \\} \\[ \\] \\( \\) \\ \\n \\tt \\* \\\\";
-       parser.parsing("\\' \\{ \\} \\[ \\] \\( \\) \\ \\n \\tt \\* \\\\", doc2);
-       assertEquals(doc1.md_data,doc2.md_data);
-       
-       doc1.md_data="    asdfasdfasdfasdf&&>< &amp;";
-       parser.parsing("    asdfasdfasdfasdf&&>< &amp;", doc2);
-       assertEquals(doc1.md_data,doc2.md_data);
    }
 
-   
    @Test
    public void testCheckItem() {
       Document doc1 = new Document(); 

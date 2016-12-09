@@ -20,5 +20,12 @@ public class NodeTest {
 		assertEquals(test_node1.md_data,test_node2.create("abc").md_data);
 	}
 
+	@Test
+	public void testSetToken() {
+		Node test_node1 = new Node();
+		Node test_node2 = new Node();
+
+	}
+
 
 }
