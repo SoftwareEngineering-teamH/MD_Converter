@@ -4,152 +4,154 @@ import java.util.ArrayList;
 
 public class Document implements MDElement
 {
-	//Node type
-	static final private int Header = 1;
-	static final private int CodeBlock = 2;
-	static final private int QuotedBlock = 3;
-	static final private int ItemList = 4;
-	static final private int Horizontal = 5;
-	static final private int TEXT = 6;
-	
-	//accept 
-	public void accept(MDElementVisitor visitor)
-	{
-		visitor.visitDocument(this);
-	}
-	
-	// attribute
-	String buffer1 = "";
-	String buffer2 = "";
-	String md_data = "";
-	String html_data = "";
-	
-	ArrayList<Node> node_list = new ArrayList<Node>();
-	
-	//method
-	public int check(String buffer1, String buffer2)
-	{
-		int type_num = 0;
-		
-		if(buffer1.startsWith("* ") || buffer1.startsWith("+ ") || buffer1.startsWith("- "))
-		{
-			type_num = ItemList;
-		}
-		else if(checkItem(buffer1))
-		{
-			type_num = 44;
-		}
-		else if(buffer1.startsWith("> "))
-		{
-			type_num = QuotedBlock;
-		}
-		else if(buffer1.startsWith("    ") || buffer1.startsWith("\t"))
-		{
-			// if sentence starts with tab(or 4 space), it is code block.
-			type_num = CodeBlock;
-		}
-		else if(buffer1.startsWith("# ") || buffer1.startsWith("## ") || buffer1.startsWith("### ") || buffer1.startsWith("#### ") || buffer1.startsWith("##### ") || buffer1.startsWith("###### "))
-			type_num = Header;
-		else if(buffer1.startsWith("--"))
-		{
-			String[] str_hor = buffer1.split("-");
-			if(str_hor.length == 0)
-				type_num = Horizontal;
-			else
-				type_num = TEXT;
-		}
-		else if(buffer2.startsWith("==") || buffer2.startsWith("--"))
-		{
-			int isH = 3;
-			
-			if(buffer2.startsWith("=="))
-			{
-				String[] str_hdc = buffer2.split("=");
-				if(str_hdc.length == 0 && !buffer1.equals(""))
-					isH = 1;
-				else
-					isH = 3;
-			}
-			else if(buffer2.startsWith("--"))
-			{
-				String[] str_hdc = buffer2.split("-");
-				if(str_hdc.length == 0 && !buffer1.equals(""))
-					isH = 2;
-				else
-					isH = 3;
-			}
-			
-			if(isH == 1)
-				type_num = Header;
-			else if(isH == 2)
-				type_num = 11;
-			else
-				type_num = TEXT;
-		}
-		else
-		{
-			type_num = TEXT;
-		}
-	
-		return type_num;
+   //Node type
+   static final private int Header = 1;
+   static final private int CodeBlock = 2;
+   static final private int QuotedBlock = 3;
+   static final private int ItemList = 4;
+   static final private int Horizontal = 5;
+   static final private int TEXT = 6;
+   int type_num = 0;
+   int isH = 0;
+   //accept 
+   public void accept(MDElementVisitor visitor)
+   {
+      visitor.visitDocument(this);
+   }
+   
+   // attribute
+   String buffer1 = "";
+   String buffer2 = "";
+   String md_data = "";
+   String html_data = "";
+   ArrayList<Node> node_list = new ArrayList<Node>();
+   
+   //method
+   public int check(String buffer1, String buffer2)
+   {
+      //int type_num = 0;
+      
+      if(buffer1.startsWith("* ") || buffer1.startsWith("+ ") || buffer1.startsWith("- "))
+      {
+         type_num = ItemList;
+      }
+      else if(checkItem(buffer1))
+      {
+         type_num = 44;
+      }
+      else if(buffer1.startsWith("> "))
+      {
+         type_num = QuotedBlock;
+      }
+      else if(buffer1.startsWith("    ") || buffer1.startsWith("\t"))
+      {
+         // if sentence starts with tab(or 4 space), it is code block.
+         type_num = CodeBlock;
+      }
+      else if(buffer1.startsWith("# ") || buffer1.startsWith("## ") || buffer1.startsWith("### ") || buffer1.startsWith("#### ") || buffer1.startsWith("##### ") || buffer1.startsWith("###### "))
+         type_num = Header;
+      else if(buffer1.startsWith("--"))
+      {
+         String[] str_hor = buffer1.split("-");
+         if(str_hor.length == 0)
+            type_num = Horizontal;
+         else
+            type_num = TEXT;
+      }
+      else if(buffer2.startsWith("==") || buffer2.startsWith("--"))
+      {
+         isH = 3;
+         
+         if(buffer2.startsWith("=="))
+         {
+            String[] str_hdc = buffer2.split("=");
+            if(str_hdc.length == 0 && !buffer1.equals(""))
+               isH = 1;
+            else
+               isH = 3;
+         }
+         else if(buffer2.startsWith("--"))
+         {
+            String[] str_hdc = buffer2.split("-");
+            if(str_hdc.length == 0 && !buffer1.equals(""))
+               isH = 2;
+            else
+               isH = 3;
+         }
+         
+         if(isH == 1)
+            type_num = Header;
+         else if(isH == 2)
+            type_num = 11;
+         else
+            type_num = TEXT;
+      }
+      else
+      {
+         type_num = TEXT;
+      }
+   
+      return type_num;
 
-	}
+   }
+   public int check(String[] buffer){
+      type_num = 0;
+      
+      if(buffer[0].startsWith("* ") || buffer[0].startsWith("+ ") || buffer[0].startsWith("- ")|| buffer[0].startsWith("1. "))
+      {
+   
+   
+         type_num = ItemList;
+      }
+      return type_num;
+   }
 
-	public Node setNode(int type, String data)
-	{
-		switch(type)
-		{
-		case Header : 
-			Header hd = new Header();
-			return hd.create(data, type);
-		case 11 : 
-			Header hd2 = new Header();
-			return hd2.create(data, type);
-		case 2 :
-			CodeBlock cb  = new CodeBlock();
-			return cb.create(data);
-		case 3 :
-			QuotedBlock qb = new QuotedBlock();
-			return qb.create(data);
-		case 4 :
-			ItemList ul = new ItemList();
-			return ul.create(data, 4);
-		case 44 :
-			ItemList ol = new ItemList();
-			return ol.create(data, 44);
-		case 5 :
-			Horizontal hz = new Horizontal();
-			return hz.create(data);
-		default :
-			TextBlock tt = new TextBlock();
-			return tt.create(data);
-		}
-	}
-	
-	public boolean checkItem(String data)
-	{
-		int index = data.indexOf('.');
-		if(index == -1)
-			return false;
-		String str_list = data.substring(0, index);
-		if(str_list != null)
-		{
-			try
-			{
-				Integer.parseInt(str_list);
-				return true;
-			}
-			catch (Exception e)
-			{
-				return false;
-			}
-		}
-		else
-			return false;
-	}
-	
+   public Node setNode(int type, String data)
+   {
+      switch(type)
+      {
+      case Header : 
+         Header hd = new Header();
+         return hd.create(data, type);
+      case 11 : 
+         Header hd2 = new Header();
+         return hd2.create(data, type);
+      case 2 :
+         CodeBlock cb  = new CodeBlock();
+         return cb.create(data);
+      case 3 :
+         QuotedBlock qb = new QuotedBlock();
+         return qb.create(data);
+      case 4 :
+         ItemList ul = new ItemList();
+         return ul.create(data, 4);
+      case 44 :
+         ItemList ol = new ItemList();
+         return ol.create(data, 44);
+      case 5 :
+         Horizontal hz = new Horizontal();
+         return hz.create(data);
+      default :
+         TextBlock tt = new TextBlock();
+         return tt.create(data);
+      }
+   }
+   
+   public boolean checkItem(String data)
+   {
+      int index = data.indexOf('.');
+      if(index == -1)
+         return false;
+      String str_list = data.substring(0, index);
+         try
+         {
+            Integer.parseInt(str_list);
+            return true;
+         }
+         catch (Exception e)
+         {
+            return false;
+         }
+   }
+   
 }
-
-
-
-
