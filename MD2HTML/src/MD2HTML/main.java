@@ -2,7 +2,7 @@ package MD2HTML;
 
 import java.io.*;
 import java.util.Scanner;
-import org.w3c.tidy.Tidy;
+//import org.w3c.tidy.Tidy;
 
 public class main 
 {
@@ -259,7 +259,7 @@ public class main
        
       // html error test
       
-      
+      /*
       Tidy tidy = new Tidy();
          InputStream stream = new ByteArrayInputStream(doc.html_data.getBytes());
          tidy.parse(stream, System.out);
@@ -268,7 +268,7 @@ public class main
             System.out.println("***error exist***");
          else if (tidy.getParseErrors() == 0)
             System.out.println("***No error***");
-      
+      */
       // Document Object.htmlData >> file output
          try{
         	    PrintWriter writer = new PrintWriter("output.html", "UTF-8");
