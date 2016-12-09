@@ -20,24 +20,24 @@ public class MDParserTest {
       parser.parsing("* 123\n456\n* 78 **ab ** *a *",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
-      doc1.md_data="1. a\na\n2. c\n\n* aa\n---------\n\n1. e\n* 123\n\n* 12";
-      parser.parsing("1. a\b나\n2. c\n\n* aa\n---------\n\n1. e\n* 123\n\n* 12",doc2);
+      doc1.md_data="1. 가\n나\n2. 다\n\n* aa\n---------\n\n1. 라\n* 123\n\n* 12";
+      parser.parsing("1. 가\n나\n2. 다\n\n* aa\n---------\n\n1. 라\n* 123\n\n* 12",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
 
-      doc1.md_data="> \n12\n> \n> \n------\n>\n\n\n1. 가";
-      parser.parsing("> \n12\n> \n> \n------\n>\n\n\n1. 가",doc2);
+      doc1.md_data="> \n가나\n> \n> \n------\n>\n\n\n1. 가";
+      parser.parsing("> \n가나\n> \n> \n------\n>\n\n\n1. 가",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
-      doc1.md_data="> \nab\n> \n> \n------\n>\n\n\n1. a";
-      parser.parsing("> \nab\n> \n> \n------\n>\n\n\n1. a",doc2);
+      doc1.md_data="> \n가나\n> \n> \n------\n>\n\n\n1. 가";
+      parser.parsing("> \n가나\n> \n> \n------\n>\n\n\n1. 가",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
-      doc1.md_data="1. a\nbc\n2. d";
-      parser.parsing("1. a\nbc\n2. d",doc2);
+      doc1.md_data="1. 가\n나다\n2. 라";
+      parser.parsing("1. 가\n나다\n2. 라",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
-      doc1.md_data="> a\n--------\n\n> b\nc\n> d";
-      parser.parsing("> a\n--------\n\n> b\nc\n> d",doc2);
+      doc1.md_data="> 영\n--------\n\n> 일\n이\n> 삼";
+      parser.parsing("> 영\n--------\n\n> 일\n이\n> 삼",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
       doc1.md_data="111\n======";
@@ -107,8 +107,8 @@ public class MDParserTest {
       Document doc2 = new Document(); 
       MDParser parser = new MDParser();
       
-      doc1.md_data="12a. sd\n.s";
-      parser.parsing("12a. sd\n.s",doc2);
+      doc1.md_data="12가. 나다\n.나";
+      parser.parsing("12가. 나다\n.나",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
    }
 
