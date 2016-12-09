@@ -25,10 +25,6 @@ public class mainTest {
       args[2] = "test.md";
       Main.main(args);
       
-      args[0] = "-read";
-      args[1] = "-slide";
-      args[2] = "a.md";
-      Main.main(args);
 
       //read_slide_txt
       args[0] = "-read";
@@ -109,8 +105,6 @@ public class mainTest {
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
-      Main.main(args);
-
       args[0] = "-read";
       args[1] = "-plain";
       args[2] = "test.md";
