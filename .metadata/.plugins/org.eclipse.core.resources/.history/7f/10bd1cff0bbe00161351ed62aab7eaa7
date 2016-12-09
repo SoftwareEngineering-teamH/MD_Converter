@@ -21,11 +21,11 @@ public class MDParserTest {
       assertEquals(doc1.md_data,doc2.md_data);
       
       doc1.md_data="1. a\na\n2. c\n\n* aa\n---------\n\n1. e\n* 123\n\n* 12";
-      parser.parsing("1. a\na\n2. c\n\n* aa\n---------\n\n1. e\n* 123\n\n* 12",doc2);
+      parser.parsing("1. a\b나\n2. c\n\n* aa\n---------\n\n1. e\n* 123\n\n* 12",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
 
-      doc1.md_data="> \n12\n> \n> \n------\n>\n\n\n1. a";
-      parser.parsing("> \n12\n> \n> \n------\n>\n\n\n1. a",doc2);
+      doc1.md_data="> \n12\n> \n> \n------\n>\n\n\n1. 가";
+      parser.parsing("> \n12\n> \n> \n------\n>\n\n\n1. 가",doc2);
       assertEquals(doc1.md_data,doc2.md_data);
       
       doc1.md_data="> \nab\n> \n> \n------\n>\n\n\n1. a";
