@@ -27,5 +27,17 @@ public class NodeTest {
 
 	}
 
+	@Test
+	public void testSetStartTag() 
+	{
+		
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetEndTag() 
+	{
+		fail("Not yet implemented");
+	}
 
 }
