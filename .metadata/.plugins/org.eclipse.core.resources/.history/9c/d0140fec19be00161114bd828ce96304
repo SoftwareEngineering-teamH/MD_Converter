@@ -1,0 +1,19 @@
+package MD2HTML;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class PlainVisitorTest {
+
+	@Test
+	public void testVisitDocument() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testVisitNode() {
+		fail("Not yet implemented");
+	}
+
+}
