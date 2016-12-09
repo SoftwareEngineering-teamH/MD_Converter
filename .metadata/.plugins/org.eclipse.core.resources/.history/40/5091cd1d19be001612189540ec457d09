@@ -185,7 +185,7 @@ public class main
                                 	   data += sc.nextLine();
                                        data += "\n";
                                  }
-                                 type += "plain";
+                                 type += "plain";}
                               
                                  System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n");
                               }

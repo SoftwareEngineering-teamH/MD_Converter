@@ -9,8 +9,9 @@ public class main
    
    public static void main(String[] args) throws IOException
    {
-	  String data = "";
-      String type = "";	   
+	   String data1 = new String(); 
+	   String data = data1;
+      String type = new String();
       try
       {
          if(args[0].equals("-exit"))
@@ -59,6 +60,11 @@ public class main
                                  
                            type += "slide";
                                  
+                           if(!data1.equals(null)){
+                           data = data1;
+                           System.out.println(data); 
+                           
+                           }
                            
                            System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n"); 
                         }
@@ -101,6 +107,11 @@ public class main
                            }
                            type += "fancy";
                                    
+                           if(!data1.equals(null)){
+                           data = data1;
+                           System.out.println(data); 
+                           
+                           }
                            System.out.println("\n  [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n"); 
                         }
                      }
@@ -143,6 +154,11 @@ public class main
                                     data += "\n";
                                  }
                                  type += "plain";
+                                 if(!data1.equals(null)){
+                              data = data1;
+                              System.out.println(data); 
+                              
+                              }
                               
                                  System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n");
                               }
@@ -182,10 +198,15 @@ public class main
                                  Scanner sc = new Scanner(file);
                                  while(sc.hasNext()) 
                                  {
-                                	   data += sc.nextLine();
+                                    data += sc.nextLine();
                                        data += "\n";
                                  }
                                  type += "plain";
+                                 if(!data1.equals(null)){
+                              data = data1;
+                              System.out.println(data); 
+                              
+                              }
                               
                                  System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n");
                               }

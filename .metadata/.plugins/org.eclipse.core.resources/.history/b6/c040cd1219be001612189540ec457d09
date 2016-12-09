@@ -101,6 +101,11 @@ public class main
                            }
                            type += "fancy";
                                    
+                           if(!data1.equals(null)){
+                           data = data1;
+                           System.out.println(data); 
+                           
+                           }
                            System.out.println("\n  [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n"); 
                         }
                      }
@@ -143,6 +148,11 @@ public class main
                                     data += "\n";
                                  }
                                  type += "plain";
+                                 if(!data1.equals(null)){
+                              data = data1;
+                              System.out.println(data); 
+                              
+                              }
                               
                                  System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n");
                               }
@@ -186,6 +196,11 @@ public class main
                                        data += "\n";
                                  }
                                  type += "plain";
+                                 if(!data1.equals(null)){
+                              data = data1;
+                              System.out.println(data); 
+                              
+                              }
                               
                                  System.out.println("\n [Successfully converted]: File <"+ args[2]+">was converted to File <"+"output.html"+">\n\n");
                               }
