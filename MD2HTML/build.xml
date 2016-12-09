@@ -19,7 +19,7 @@
 
 
 <path id="classpath">
-	<fileset dir ="${basedir}" includes="jtidy-r938.jar"/>
+	<fileset dir ="lib" includes="jtidy-r938.jar"/>
 </path>
 	
 <!--compile target-->
