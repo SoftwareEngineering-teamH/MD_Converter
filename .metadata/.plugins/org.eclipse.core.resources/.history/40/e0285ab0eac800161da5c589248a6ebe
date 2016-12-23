@@ -18,8 +18,6 @@ public class FancyVisitor implements MDElementVisitor
 	      doc.html_data += "ul{\nlist-style-type: circle;\n}\n";
 	      doc.html_data += "em{\ncolor: green;\nfont-size: 10px;\n}\n";
 	      doc.html_data += "pre{\nbackground-color: gray;\n}\n";
-	      doc.html_data += "hr{\nborder: solid 5px pink;\n}\n";
-	      
 	      doc.html_data += "</style>\n\n";
 	      
 	      for(int i = 0; i<doc.node_list.size(); i++)

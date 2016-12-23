@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="PlainVisitorTest" project="MD2HTML" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="MD2HTML.PlainVisitorTest" time="0.007">
-    <testcase name="testVisitNode" classname="MD2HTML.PlainVisitorTest" time="0.003"/>
-    <testcase name="testVisitDocument" classname="MD2HTML.PlainVisitorTest" time="0.004"/>
-  </testsuite>
-</testrun>

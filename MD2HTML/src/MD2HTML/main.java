@@ -225,14 +225,14 @@ public class main
       // Document Object.accept((type)Visitor) 
       switch (type)
       {
-      case "plain" : 
-         doc.accept(new PlainVisitor());
+      case "fancy" : 
+         doc.accept(new FancyVisitor());
          break;
       case "slide" : 
          doc.accept(new SlideVisitor());
          break;
-      default   :  
-         doc.accept(new FancyVisitor());
+      default :  
+         doc.accept(new PlainVisitor());
          break;
       }
        
